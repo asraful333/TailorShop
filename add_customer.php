@@ -7,14 +7,13 @@
 		$age = mysqli_real_escape_string($conn,$_POST['age']);
 		$phone = mysqli_real_escape_string($conn,$_POST['phone']);
 		$address = mysqli_real_escape_string($conn,$_POST['address']);
-		$address = mysqli_real_escape_string($conn,$_POST['address']);
 		$gender = mysqli_real_escape_string($conn,$_POST['gender']);
 
 		$check = "SELECT * FROM customer_tb WHERE customer_phone ='$phone'";
 		$res_c = mysqli_query($conn,$check) or die(mysqli_error($conn));
 
 		if (mysqli_num_rows($res_c)>0) {
-			$msg= "Phone number is already exists";
+			$msg= '<div class="alert alert-warning alert-dismissible" role="alert" style="margin-top: 10px; margin-bottom: 0px;"><i class="fa fa-warning"></i> Phone number is already exists</div>';
 		}
 		else{
 
@@ -42,28 +41,30 @@
 								  <div class="form-group required">
 								    <label class="control-label col-sm-2" for="name">Name:</label>
 								    <div class="col-sm-10">
-								      <input type="text" class="form-control" name="name" id="name" placeholder="Enter Name">
+								      <input type="text" class="form-control" name="name" id="name" placeholder="Enter Name" required="" />
 								    </div>
 								  </div>
 								  <div class="form-group required">
 								    <label class="control-label col-sm-2" for="pwd">Age:</label>
 								    <div class="col-sm-10"> 
-								      <input type="text" class="form-control" name="age" id="age" placeholder="Enter Age">
+								      <input type="text" class="form-control" name="age" id="age" placeholder="Enter Age" required="" />
 								    </div>
 								  </div>
 								  <div class="form-group required">
 								    <label class="control-label col-sm-2" for="pwd">Phone:</label>
 								    <div class="col-sm-10"> 
-								      <input type="text" class="form-control" name="phone" id="phone" placeholder="Enter Phone">
+								      <input type="text" class="form-control" name="phone" id="phone" placeholder="Enter Phone" required="" />
+								      									  
+									      <?php if (isset($msg)): ?>
+											<span><?php echo $msg;?></span>
+										  <?php endif ?>
+									  
 								    </div>
-								    <?php if (isset($msg)): ?>
-										<span><?php echo $msg;?></span>
-									<?php endif ?>
 								  </div>
 								  <div class="form-group required">
 								    <label class="control-label col-sm-2" for="pwd">Address:</label>
 								    <div class="col-sm-10"> 
-								      <textarea class="form-control" rows="4" name="address" id="address" placeholder="Enter Address"></textarea>
+								      <textarea class="form-control" rows="4" name="address" id="address" placeholder="Enter Address" required=""></textarea>
 								    </div>
 								  </div>
 								  <div class="form-group required">
