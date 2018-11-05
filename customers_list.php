@@ -36,7 +36,7 @@
 					<td>+880 <?php echo $res['customer_phone']; ?></td>
 					<td><?php echo $res['customer_address']; ?></td>
 					<td><?php echo $res['customer_gender']; ?></td>
-					<td><a class="btn btn-success" href="reg_print.php?customer_id=<?php echo $res['customer_id']; ?>">View</a></td>
+					<td><a class="btn btn-success" href="reg_print.php?customer_id=<?php echo $res['customer_id']; ?>">Edit</a></td>
 				</tr>
 				<?php 
 					}
