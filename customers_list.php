@@ -9,39 +9,38 @@
 		<table class="table table-hover">
 			<thead>
 				<tr>
-					<th>#</th>
+					<th>ID</th>
 					<th>Name</th>
 					<th>Age</th>
 					<th>Phone</th>
 					<th>Address</th>
+					<th>Gender</th>
 					<th>Action</th>
 				</tr>
 			</thead>
 			<tbody id="myTable">
+				<?php 
+					include 'inc/connect.php';
+
+					$q = "SELECT * FROM customer_tb";
+
+					$query = mysqli_query($conn,$q);
+
+					while ($res= mysqli_fetch_array($query)) {
+										
+				?>
 				<tr>
-					<td>1</td>
-					<td>Asraful Karim Nayem</td>
-					<td>24</td>
-					<td>01676728073</td>
-					<td>Uttara, Dhaka-1230</td>
-					<td><a class="btn btn-success" href="#">Edit</a></td>
+					<td><?php echo $res['customer_id']; ?></td>
+					<td><?php echo $res['customer_name']; ?></td>
+					<td><?php echo $res['customer_age']; ?></td>
+					<td>+880 <?php echo $res['customer_phone']; ?></td>
+					<td><?php echo $res['customer_address']; ?></td>
+					<td><?php echo $res['customer_gender']; ?></td>
+					<td><a class="btn btn-success" href="reg_print.php?customer_id=<?php echo $res['customer_id']; ?>">View</a></td>
 				</tr>
-				<tr>
-					<td>2</td>
-					<td>Sumon Hossain</td>
-					<td>23</td>
-					<td>01676728071</td>
-					<td>Uttara, Dhaka-1230</td>
-					<td><a class="btn btn-success" href="#">Edit</a></td>
-				</tr>
-				<tr>
-					<td>3</td>
-					<td>Kamran Hasan</td>
-					<td>23</td>
-					<td>01776728075</td>
-					<td>Uttara, Dhaka-1230</td>
-					<td><a class="btn btn-success" href="#">Edit</a></td>
-				</tr>
+				<?php 
+					}
+				?>
 			</tbody>
 		</table>
 	</div>
