@@ -7,31 +7,31 @@
 
 							<form class="form-horizontal" action="" method="">
 								
-								<div class="form-group">
+								  <div class="form-group required">
 								    <label class="control-label col-sm-2" for="name">Name:</label>
 								    <div class="col-sm-10">
 								      <input type="text" class="form-control" id="name" placeholder="Enter Name">
 								    </div>
 								  </div>
-								  <div class="form-group">
+								  <div class="form-group required">
 								    <label class="control-label col-sm-2" for="pwd">Age:</label>
 								    <div class="col-sm-10"> 
 								      <input type="text" class="form-control" id="age" placeholder="Enter Age">
 								    </div>
 								  </div>
-								  <div class="form-group">
+								  <div class="form-group required">
 								    <label class="control-label col-sm-2" for="pwd">Phone:</label>
 								    <div class="col-sm-10"> 
 								      <input type="text" class="form-control" id="phone" placeholder="Enter Phone">
 								    </div>
 								  </div>
-								  <div class="form-group">
+								  <div class="form-group required">
 								    <label class="control-label col-sm-2" for="pwd">Adderss:</label>
 								    <div class="col-sm-10"> 
 								      <textarea class="form-control" rows="4" id="address" placeholder="Enter Address"></textarea>
 								    </div>
 								  </div>
-								  <div class="form-group">
+								  <div class="form-group required">
 								    <label class="control-label col-sm-2" for="pwd">Gender:</label>
 								    <div class="col-sm-10"> 
 								      <label class="radio-inline"><input type="radio" name="gender" checked>Male</label>
