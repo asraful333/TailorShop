@@ -5,7 +5,7 @@
 			<!-- NAVBAR -->
 			<nav class="navbar navbar-default navbar-fixed-top">
 				<div class="brand">
-					<a href="index.html"><img src="assets/img/logo-ori.png" alt="Klorofil Logo" class="img-responsive logo"></a>
+					<a href="user.php"><img src="assets/img/logo-ori.png" alt="Taior Logo" class="img-responsive logo"></a>
 				</div>
 				<div class="container-fluid">
 					<div class="navbar-btn">
@@ -24,6 +24,7 @@
 				<div class="sidebar-scroll">
 					<nav>
 						<ul class="nav">
+							<li><a href="" style="font-size: 25px;"> <span>System User</span></a></li>
 							<li><a href="user.php?page=dashboard" class="active"><i class="lnr lnr-home"></i> <span>Dashboard</span></a></li>
 							<li>
 								<a href="#subPages" data-toggle="collapse" class="collapsed"><i class="lnr lnr-users"></i> <span>Customer</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
