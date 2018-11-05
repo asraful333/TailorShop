@@ -30,97 +30,123 @@
 						</div>
 					</div>
 
+					<hr/>
+
+					<div class="row">
 				        <div class="table-responsive">
-				            <table class="table table-bordered" id="item_table">
+				            <table class="table table-striped" id="item_table">
+				            	<h3>Orders:</h3>
 				                <tr>
-				                    <th>Service</th>
+				                    <th style="width: 20%;">Service</th>
 				                    <th>Rate</th>
 				                    <th>Quantity</th>
 				                    <th>Amount</th>
-				                    <th>Fabric</th>
-				                    <th>Master</th>
+				                    <!--<th>Fabric</th>-->
+				                    <th style="width: 20%;">Master</th>
 				                    <th>Action</th>
 				                </tr>
 				                <tr>
-				                    <td><select name="service[]" class="form-control service">
-				                    	<option>Select Service</option>
-				                    	<option value="shirt">Shirt</option>
-				                    	<option value="pant">Pant</option>
-				                    	<option value="suit">Suit</option>
-				                    </select></td>
+				                    <td>
+				                    	<select name="service[]" class="form-control service">
+					                    	<option>Select Service</option>
+					                    	<option value="shirt">Shirt</option>
+					                    	<option value="pant">Pant</option>
+					                    	<option value="suit">Suit</option>
+				                    	</select>
+				                    </td>
 				                    <td><input type="text" name="rate[]" class="form-control rate" /></td>
 				                    <td><input type="text" name="quantity[]" class="form-control quantity" /></td>
 				                    <td><input type="text" name="amount[]" class="form-control amount" /></td>
-				                    <td><input type="text" name="fabric[]" class="form-control fabric" /></td>
-				                    <td><select name="master[]" class="form-control master"><option>Select master</option><option>Nayem</option><option>Shimul</option><option>Sumon</option></select></td>
+				                    <!--<td><input type="text" name="fabric[]" class="form-control fabric" /></td>-->
+				                    <td>
+				                    	<select name="master[]" class="form-control master">
+				                    		<option>Select master</option>
+				                    		<option>Nayem <span class="badge bg-danger">(2)</span></option>
+				                    		<option>Shimul <span class="badge">(4)</span></option>
+				                    		<option>Sumon <span class="badge">(5)</span></option>
+				                    	</select>
+				                    </td>
 				                    <td><button type="button" name="add" class="btn btn-success" >Add</button></td>
 				                </tr>
-				            </table>
-
-				            <div class="col-md-4">
-					            <div class="optional shirt form-group" style="display: none;">
-					            	<h1>Measurement</h1>
-					            	<label class="form-control">Body</label>
-					            	<input type="text" class="form-control" name="body" />
-					            </div>					            				            	
-
-
-
-					            <div class="optional pant form-group" style="display: none;">
-					            	<h1>Measurement</h1>
-					            	<label class="form-control">Length</label>
-					            	<input type="text" class="form-control" name="length" />
-					            </div>
-
-
-					            <div class="optional suit form-group" style="display: none;">
-					            	<h1>Measurement</h1>
-					            	<label class="form-control">chist</label>
-					            	<input type="text" class="form-control" name="chist" />
-					            </div>
-
-				            </div>
+				            </table>				            
 				        </div>
+				    </div>
+
+
+				    	<div class="row">
+				    		<h3>Mesurement:</h3>
+				    		<hr/>
+				    		<?php 
+				    			include 'inc/measurement.php';
+				    		?>
+				        </div>
+
+				        <hr/>
+
+				    <div class="row">
 				        <div class="table-responsive">
-					            <table class="table table-bordered">
-					            	<h3>Sub-Orders</h3>
+					            <table class="table table-striped">
+					            	<h3>Sub-Orders:</h3>
 					            	<tr>
-						            	<th>Order Id</th>
-						            	<th>Customer Name</th>
+						            	<th>#</th>
 						            	<th>Service</th>
 						            	<th>Quantity</th>
 						            	<th>Master</th>
 					            	</tr>
 					            	<tr>
 					            		<td>1</td>
-					            		<td>Nayem</td>
 					            		<td>Shirt</td>
 					            		<td>2</td>
 					            		<td>Shimul</td>
 					            	</tr>
 					            </table>
-				            </div>
-				            
-						    <div class="col-md-4">
+				        </div>
+				    </div>
+
+				    <hr/>
+
+				    	<div class="row">        
+						    <div class="col-md-3">
 							    <div class="input-group">
-							      <span class="input-group-addon">Total Amount</span>
-							      <input id="msg" type="text" class="form-control" name="msg" placeholder="Total">
+							      <span class="input-group-addon" style="background-color: #28ACB8; color: white;">Sub-Total</span>
+							      <input id="msg" type="text" class="form-control" name="total_amount" placeholder="Total">
 							    </div>
 						    </div>
-						    <div class="col-md-4">
+						    <div class="col-md-3">
 							    <div class="input-group">
-							      <span class="input-group-addon">Discount</span>
-							      <input id="msg" type="text" class="form-control" name="msg" placeholder="Discount">
+							      <span class="input-group-addon" style="background-color: #3A80D7; color: white;">Discount</span>
+							      <input id="msg" type="text" class="form-control" name="discount" placeholder="Discount">
 							    </div>
 						    </div>
-						    <div class="col-md-4">
+						    <div class="col-md-3">
 							    <div class="input-group">
-							      <span class="input-group-addon">Due</span>
-							      <input id="msg" type="text" class="form-control" name="msg" placeholder="Due">
+							      <span class="input-group-addon" style="background-color: #4E54B6; color: white;">Total</span>
+							      <input id="msg" type="text" class="form-control" name="advance" placeholder="Advance">
 							    </div>
 						    </div>
-						   			
+						    <div class="col-md-3">
+							    <div class="input-group">
+							      <span class="input-group-addon" style="background-color: #703688; color: white;">Advance</span>
+							      <input id="msg" type="text" class="form-control" name="advance" placeholder="Advance">
+							    </div>
+						    </div>
+						</div>
+
+						    <hr/>
+
+						    <div class="row">
+						    	<div class="form-group">
+								    <h3><label class="control-label col-sm-2" for="pwd">Status:</label></h3>
+								    <div class="col-sm-10"> 
+								      <label class="radio-inline"><input type="radio" name="status" checked>Confirm</label>
+									  <label class="radio-inline"><input type="radio" name="status">Delivered</label>
+								    </div>
+								  </div>
+						    </div>
+
+						<div class="row">		
 							<center><a type="button" class="btn btn-success" href="" style="margin-top: 20px;">Submit Order</a></center>
+						</div>
 				</div>
 		    </form>
 		</div>
