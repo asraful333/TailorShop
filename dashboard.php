@@ -8,7 +8,7 @@
 								<div class="row">
 									<div class="col-md-3">
 										<div class="metric">
-											<span class="icon"><i class="fa fa-download"></i></span>
+											<span class="icon"><i class="fa fa-bar-chart"></i></span>
 											<p>
 												<span class="number">100</span>
 												<a href="#"><span class="title">Total Order</span></a>
@@ -35,7 +35,7 @@
 									</div>
 									<div class="col-md-3">
 										<div class="metric">
-											<span class="icon"><i class="fa fa-bar-chart"></i></span>
+											<span class="icon"><i class="fa fa-list-ul"></i></span>
 											<p>
 												<span class="number">5</span>
 												<a href="#"><span class="title">Today's Deliverey</span></a>
