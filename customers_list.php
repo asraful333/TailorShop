@@ -4,9 +4,9 @@
 		<h3>Customers List</h3>
 	</div>
 	<div class="panel-body">
-		<input class="form-control pull-right" id="myInput" type="text" placeholder="Search.." style="width: 50%;">
-		<br><br>
-		<table class="table table-hover">
+		<!--<input class="form-control pull-right" id="myInput" type="text" placeholder="Search.." style="width: 50%;">
+		<br><br>-->
+		<table id="example" class="table table-striped table-bordered" style="width:100%">
 			<thead>
 				<tr>
 					<th>ID</th>

@@ -4,12 +4,12 @@
 		<h3>Orders List</h3>
 	</div>
 	<div class="panel-body">
-		<input class="form-control pull-right" id="myInput" type="text" placeholder="Search.." style="width: 50%;">
-		<br><br>
-		<table class="table table-hover">
+	<!--	<input class="form-control pull-right" id="myInput" type="text" placeholder="Search.." style="width: 50%;">
+		<br><br>-->
+		<table id="example" class="table table-striped table-bordered" style="width:100%">
 			<thead>
 				<tr>
-					<th>#</th>
+					<th> # </th>
 					<th>Order Id</th>
 					<th>Customer Name</th>
 					<th>Due</th>
@@ -62,8 +62,7 @@
 					<td><span class="label label-default">On Process</span></td>
 					<td>
 						  <div class="dropdown">
-						    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Action
-						    <span class="caret"></span></button>
+						    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Action <span class="caret"></span></button>
 						    <ul class="dropdown-menu">
 						      <li><a href="#">Update/Edit</a></li>
 						      <li><a href="#">Details</a></li>
