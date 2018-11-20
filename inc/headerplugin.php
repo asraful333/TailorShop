@@ -9,11 +9,13 @@
 		<!-- VENDOR CSS -->
 		<link rel="stylesheet" href="assets/css/reset.css">
 		<link rel="stylesheet" href="assets/vendor/bootstrap/css/bootstrap.min.css">
+		<!--<link rel="stylesheet" href="assets/vendor/bootstrap/css/datatables.min.css">-->
 		<link rel="stylesheet" href="assets/vendor/bootstrap/css/dataTables.bootstrap.min.css">
+		<link rel="stylesheet" href="assets/vendor/bootstrap/css/chosen.min.css">
 		<link rel="stylesheet" href="assets/vendor/font-awesome/css/font-awesome.min.css">
 		<link rel="stylesheet" href="assets/vendor/linearicons/style.css">
 		<link rel="stylesheet" href="assets/vendor/chartist/css/chartist-custom.css">
-		
+		<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/css/select2.css">
 		<!-- MAIN CSS -->
 		<link rel="stylesheet" href="assets/css/main.css">
 		<!-- GOOGLE FONTS -->
