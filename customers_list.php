@@ -23,7 +23,7 @@
 
 			$qry= mysqli_query($conn,$sql);
 			
-			header('Location: user.php?page=customers_list');
+			header('Location: systemUser.php?page=customers_list');
 		}
 		
 	}
@@ -37,7 +37,7 @@
 
 	$qry = "INSERT INTO `customer_tb`(`customer_name`, `customer_age`, `customer_phone`,`customer_address`,`customer_gender`) VALUES ('$customer_name','$customer_age','$customer_phone','$customer_address','$customer_gender')";
 	$rslt = mysqli_query($conn,$qry);
-	header('Location: user.php?page=customers_list');
+	header('Location: systemUser.php?page=customers_list');
 	}
 
 ?>
@@ -86,7 +86,7 @@
 					<td><button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#<?php echo $res['customer_id']; ?>">Edit</button></td>
 				</tr>
 
-				<!-- MODAL FOR UPDATE DATA-->
+				<!-- MODAL FOR UPDATE customer DATA-->
 				<div class="modal fade" id="<?php echo $res['customer_id']; ?>" role="dialog">
 				    <div class="modal-dialog">
 				    
@@ -136,6 +136,8 @@
 </div>
 <!-- END TABLE STRIPED -->
 
+<!--modal use for add customer-->
+
 					<div id="add_data_Modal" class="modal fade" role="dialog" >
 					 <div class="modal-dialog" role="document">
 					  <div class="modal-content">
@@ -149,22 +151,22 @@
 					    
 					    	<div class="form-group">
 					     <label>Enter Customer Name</label>
-					     <input type="text" name="name" id="name" class="form-control" />
+					     <input type="text" name="name" id="name" class="form-control" required="" />
 					     <label id="lblname" style="color: red;"></label>
 					     	</div>
 					     	<div class="form-group">
 					     <label>Enter Age</label>
-					     <input type="text" name="age" id="age" class="form-control" />
+					     <input type="text" name="age" id="age" class="form-control" required="" />
 					     <label id="lblage" style="color: red;"></label>
 					     	</div>
 					     	<div class="form-group">
 					     <label>Enter Phone Number</label>
-					     <input type="number" name="phone" id="phone" class="form-control" />
+					     <input type="number" name="phone" id="phone" class="form-control" required="" />
 					     <label id="lblphone" style="color: red;"></label>
 					     	</div>
 					     	<div class="form-group">
-					     <label>Enter Employee Address</label>
-					     <textarea name="address" id="address" class="form-control"></textarea>
+					     <label>Enter Address</label>
+					     <textarea name="address" id="address" class="form-control" required=""></textarea>
 					     <label id="lbladdress" style="color: red;"></label>
 					     	</div>
 					     	<div class="form-group">
@@ -187,3 +189,4 @@
 					  </div>
 					 </div>
 					</div>
+					<!--end modal use for add customer-->
