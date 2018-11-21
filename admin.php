@@ -32,8 +32,8 @@
 								<a href="#subPages" data-toggle="collapse" class="collapsed"><i class="lnr lnr-users"></i> <span>Staff</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
 								<div id="subPages" class="collapse ">
 									<ul class="nav">
-										<li><a href="admin.php?page=add_staff" class="">Add Staff</a></li>
-										<li><a href="admin.php?page=staff_list" class="">Staff List</a></li>
+										<li><a href="admin.php?page=systemUser_list" class="">System User List</a></li>
+										<li><a href="admin.php?page=master_list" class="">Master List</a></li>
 									</ul>
 								</div>
 							</li>
@@ -50,15 +50,6 @@
 							</li>
 
 							<li><a href="admin.php?page=transaction" class=""><i class="lnr lnr-text-format"></i> <span>Transaction</span></a></li>
-
-							<li>
-								<a href="#subpage1" data-toggle="collapse" class="collapsed"><i class="lnr lnr-user"></i> <span>System User</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
-								<div id="subpage1" class="collapse ">
-									<ul class="nav">
-										<li><a href="admin.php?page=system_user" class="">Active/Inactive</a></li>
-									</ul>
-								</div>
-							</li>
 						</ul>
 					</nav>
 				</div>
