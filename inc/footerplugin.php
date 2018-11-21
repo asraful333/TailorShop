@@ -21,6 +21,47 @@
 	    	$(".chosen").chosen();
 	    </script>
 
+	    <script type="text/javascript">
+	    	$(function() {
+	    		//var rate = $('#rate');
+	    		$('.service').change(function() {
+	    			if($(this).val()==='shirt'){
+	    				$('#rate').val('450');
+	    			} else if ($(this).val()==='pant') {
+	    				$('#rate').val('500');
+	    			} else if($(this).val()==='suit'){
+	    				$('#rate').val('1000');
+	    			}
+	    		});
+	    		$('input').keyup(function() {
+	    			var a = $('#rate').val();
+	    			var b = $('#quantity').val();
+	    			var c = a * b;
+	    			$('#amount').attr('value',c);
+
+	    			var subTotal = 0;
+	    			$('#msg').attr('value', subTotal+c);
+
+	    		});
+
+
+	    		$('.b1').click( function() {
+	    			$('.optional').find('input:text').each( function() {
+	    				if($(this).val() > 0){
+	    					alert($(this).val());
+	    				}
+	    			});
+	    		});
+
+
+
+
+
+
+
+	    	});
+	    </script>
+
 	<!--	<script type="text/javascript">
 		    $(document).ready(function(){
 		        $(document).on('click','#add',function(){
