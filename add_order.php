@@ -4,32 +4,36 @@
 if (isset($_SESSION["order"]) && isset($_SESSION["serial"]) && isset($_SESSION["customerid"]) && $_SESSION["order"]=='yes') {
 	header('location:systemUser.php?page=suborder');
 }
-	if (isset($_POST['submitOdr'])) {
+	if (isset($_POST['submitOdr']) && isset($_POST['customer_id'])) {
 
 		$customer_id = mysqli_real_escape_string($conn,$_POST['customer_id']);
-		$status		 = mysqli_real_escape_string($conn,$_POST['status']);
-		$q = "SELECT * FROM order_tb order by order_id desc limit 1";
-			$query = mysqli_query($conn,$q);
-			while ($res= mysqli_fetch_array($query)) {
-				$serial= $res['serial'];
-			}
-			if ($serial <=1000) {
-				$serial = 1001;
-			}
-			else{
-				$serial += 1;
-			}
+		if ($customer_id!=null) {
+			$status		 = mysqli_real_escape_string($conn,$_POST['status']);
+			$q = "SELECT * FROM order_tb order by order_id desc limit 1";
+				$query = mysqli_query($conn,$q);
+				while ($res= mysqli_fetch_array($query)) {
+					$serial= $res['serial'];
+				}
+				if ($serial <=1000) {
+					$serial = 1001;
+				}
+				else{
+					$serial += 1;
+				}
 
-		$qr = "INSERT INTO order_tb (serial,customer_id,status) VALUES ('$serial','$customer_id','$status')";
-			$qry = mysqli_query($conn,$qr);
-			if ($qry) {
-				$_SESSION["order"]='yes';
-				$_SESSION["serial"]=$serial;
-				$_SESSION["customerid"]=$_POST['customer_id'];
-				header('Location:systemUser.php?page=suborder');
-			}else{
-				echo "Insert Failed!..";
-			}
+			$qr = "INSERT INTO order_tb (serial,customer_id,status) VALUES ('$serial','$customer_id','$status')";
+				$qry = mysqli_query($conn,$qr);
+				if ($qry) {
+					$_SESSION["order"]='yes';
+					$_SESSION["serial"]=$serial;
+					$_SESSION["customerid"]=$_POST['customer_id'];
+					header('Location:systemUser.php?page=suborder');
+				}else{
+					echo "Insert Failed!..";
+				}
+				unset($_POST['submitOdr']);
+		}
+
 	}
  ?>
 <div class="container-fluid">
@@ -65,16 +69,8 @@ if (isset($_SESSION["order"]) && isset($_SESSION["serial"]) && isset($_SESSION["
 							<input type="submit" name="submitOdr" class="btn btn-success">
 						</div>
 					</form> 
-						<!-- <div class="col-md-6">			    
-							<div class="form-group">
-								<label>Delivery Date</label>
-								<div class='input-group date' id='datetimepicker1'>
-									<input type='date' class="form-control" value="<?php date_default_timezone_set('Asia/Dhaka'); echo date('Y-m-d') ?>"/>
-								</div>
-							</div>
-						</div> -->
-					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+</div>

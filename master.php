@@ -28,7 +28,7 @@
 
 							<li><a href="master.php?page=dashboard" class="active"><i class="lnr lnr-home"></i><span>Dashboard</span></a></li>
 
-							<li>
+<!-- 							<li>
 								<a href="#sub" data-toggle="collapse" class="collapsed"><i class="lnr lnr-file-add"></i> <span>Order</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
 								<div id="sub" class="collapse ">
 									<ul class="nav">
@@ -37,14 +37,14 @@
 
 									</ul>
 								</div>
-							</li>
+							</li> -->
 
 							<li>
-								<a href="#sub" data-toggle="collapse" class="collapsed"><i class="lnr lnr-file-add"></i> <span>Assign Work</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
-								<div id="sub" class="collapse ">
+								<a href="#suba" data-toggle="collapse" class="collapsed"><i class="lnr lnr-file-add"></i> <span>Assign Work</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
+								<div id="suba" class="collapse ">
 									<ul class="nav">
 
-										<li><a href="admin.php?page=orders_list" class="">Orders Assign List</a></li>
+										<li><a href="master.php?page=orderassign_list" class="">Order Assign List</a></li>
 
 									</ul>
 								</div>

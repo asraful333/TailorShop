@@ -3,9 +3,9 @@
 	<body>
 		<div id="wrapper">
 			<!-- NAVBAR -->
-			<nav class="navbar navbar-default navbar-fixed-top">
+			<nav class="navbar navbar-default navbar-fixed-top hidden-print">
 				<div class="brand">
-					<a href="user.php"><img src="assets/img/logo-ori.png" alt="Taior Logo" class="img-responsive logo"></a>
+					<a href="systemUser.php"><img src="assets/img/logo-ori.png" alt="Taior Logo" class="img-responsive logo"></a>
 				</div>
 				<div class="container-fluid">
 					<div class="navbar-btn">
@@ -20,7 +20,7 @@
 			</nav>
 			<!-- END NAVBAR -->
 			<!-- LEFT SIDEBAR -->
-			<div id="sidebar-nav" class="sidebar">
+			<div id="sidebar-nav" class="sidebar hidden-print">
 				<div class="sidebar-scroll">
 					<nav>
 						<ul class="nav">

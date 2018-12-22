@@ -63,6 +63,7 @@
 					<th>Phone</th>
 					<th>Address</th>
 					<th>Gender</th>
+					<th>Add Date</th>
 					<th>Action</th>
 				</tr>
 			</thead>
@@ -83,6 +84,7 @@
 					<td>+88<?php echo $res['customer_phone']; ?></td>
 					<td><?php echo $res['customer_address']; ?></td>
 					<td><?php echo $res['customer_gender']; ?></td>
+					<td><?php echo $res['datetime']; ?></td>
 					<td><button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#<?php echo $res['customer_id']; ?>">Edit</button></td>
 				</tr>
 
@@ -100,15 +102,15 @@
 				          
 				          <form method="POST" action="" >
 									
-							<input type="hidden" name="customer_id" class="form-control" value="<?php echo $res['customer_id']; ?>" />
+							<input type="hidden" name="customer_id" class="form-control" value="<?php echo $res['customer_id']; ?>" required="" />
 				          	<label>Name</label>
-				          	<input type="text" name="uName" class="form-control" value="<?php echo $res['customer_name']; ?>" /><br/>
+				          	<input type="text" name="uName" class="form-control" value="<?php echo $res['customer_name']; ?>" required="" /><br/>
 				          	<label>Age</label>
-				          	<input type="text" name="uAge" class="form-control" value="<?php echo $res['customer_age']; ?>" /><br/>
+				          	<input type="text" name="uAge" class="form-control" value="<?php echo $res['customer_age']; ?>" required="" /><br/>
 				          	<label>Phone</label>
-				          	<input type="number" name="uPhone" class="form-control" value="<?php echo $res['customer_phone']; ?>" /><br/>
+				          	<input type="number" name="uPhone" class="form-control" value="<?php echo $res['customer_phone']; ?>" required="" /><br/>
 				          	<label>Address</label>
-				          	<textarea class="form-control" rows="2" name="uAddress" value="" /><?php echo $res['customer_address']; ?></textarea>
+				          	<textarea class="form-control" rows="2" name="uAddress" value="" required="" /><?php echo $res['customer_address']; ?></textarea>
 				          	<br/>
 				          	<label>Gender</label><br/>
 				          	<label class="radio-inline"><input type="radio" name="uGender" value="Male" <?php if( $res['customer_gender']=='Male'){echo "checked";}; ?>>Male</label>
@@ -149,28 +151,28 @@
 					   <div class="modal-body">
 						<form method="POST" action="" id="insert_form">
 					    
-					    	<div class="form-group">
-					     <label>Enter Customer Name</label>
+					    	<div class="form-group required">
+					     <label class="control-label">Enter Customer Name</label>
 					     <input type="text" name="name" id="name" class="form-control" required="" />
 					     <label id="lblname" style="color: red;"></label>
 					     	</div>
-					     	<div class="form-group">
-					     <label>Enter Age</label>
+					     	<div class="form-group required">
+					     <label class="control-label">Enter Age</label>
 					     <input type="text" name="age" id="age" class="form-control" required="" />
 					     <label id="lblage" style="color: red;"></label>
 					     	</div>
-					     	<div class="form-group">
-					     <label>Enter Phone Number</label>
+					     	<div class="form-group required">
+					     <label class="control-label">Enter Phone Number</label>
 					     <input type="number" name="phone" id="phone" class="form-control" required="" />
 					     <label id="lblphone" style="color: red;"></label>
 					     	</div>
-					     	<div class="form-group">
-					     <label>Enter Address</label>
+					     	<div class="form-group required">
+					     <label class="control-label">Enter Address</label>
 					     <textarea name="address" id="address" class="form-control" required=""></textarea>
 					     <label id="lbladdress" style="color: red;"></label>
 					     	</div>
-					     	<div class="form-group">
-					     <label>Select Gender</label>
+					     	<div class="form-group required">
+					     <label class="control-label">Select Gender</label>
 					     <select name="gender" id="gender" class="form-control">
 					      <option value="Male">Male</option>  
 					      <option value="Female">Female</option>

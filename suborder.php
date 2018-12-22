@@ -11,9 +11,8 @@ if (isset($_SESSION["order"]) && isset($_SESSION["serial"]) && isset($_SESSION["
 				$oid= $res['order_id'];
 			}
 }
+// Shirt insert code
 if (isset($_POST['shirtS'])) {
-		//$service 		= mysqli_real_escape_string($conn,$_POST['servicetype']);
-		//$rate = mysqli_real_escape_string($conn,$_POST['rate']);
 		
 		$quantity 		= mysqli_real_escape_string($conn,$_POST['quantity']);
 		$amount 		= mysqli_real_escape_string($conn,$_POST['amount']);
@@ -31,11 +30,19 @@ if (isset($_POST['shirtS'])) {
 		$arm 			= mysqli_real_escape_string($conn,$_POST['arm']);
 		$description 	= mysqli_real_escape_string($conn,$_POST['description']);
 
+		if ($master!=null) {
+
 		$sql = "INSERT INTO shirt_tb (order_id, quantity, amount, master_id, body, shoulder, neck, forearm, belly, body_length, armhole, cuff, hip, sleeves_length, arm, description) VALUES ('$oid', '$quantity', '$amount', '$master', '$body', '$shoulder', '$neck', '$forearm', '$belly', '$body_length', '$armhole', '$cuff', '$hip', '$sleeves_length', '$arm', '$description')";
 		$qry = mysqli_query($conn,$sql);
 		header('Location:systemUser.php?page=suborder');
-	}
+		}else{
+			$mg = "Select Master";
 
+		}
+	}
+// End shirt insert code
+
+// Pant insert code
 if (isset($_POST['pantS'])) {
 		// $service = mysqli_real_escape_string($conn,$_POST['service']);
 		// $rate = mysqli_real_escape_string($conn,$_POST['rate']);
@@ -52,26 +59,39 @@ if (isset($_POST['pantS'])) {
 		$zipper 		= mysqli_real_escape_string($conn,$_POST['zipper']);
 		$description 	= mysqli_real_escape_string($conn,$_POST['description']);
 
+		if ($master!=null) {
+
 		$sql = "INSERT INTO pant_tb (order_id, quantity, amount, master_id, length, thigh, fly, waist, high, bottom, hip, zipper, description) VALUES ('$oid', '$quantity', '$amount', '$master', '$length', '$thigh', '$fly', '$waist', '$high', '$bottom', '$hip', '$zipper', '$description')";
 		$qry = mysqli_query($conn,$sql);
 		header('Location:systemUser.php?page=suborder');
-	}
-		if (isset($_POST['sOrders'])) {
-		$total 		= mysqli_real_escape_string($conn,$_POST['total']);
-		$advance 	= mysqli_real_escape_string($conn,$_POST['advance']);
-		$payable 	= mysqli_real_escape_string($conn,$_POST['payable']);
-		$paystatus 	= mysqli_real_escape_string($conn,$_POST['paystatus']);
+		}else{
+			$mg = "Select Master";
 
-		$sql = "INSERT INTO `transaction_tb`(`order_id`, `total`, `advance`, `payable`, `payment_status`) VALUES ('$oid', '$total', '$advance', '$payable', '$paystatus')";
+		}
+	}
+// End pant code
+
+// Insert transaction and update order
+if (isset($_POST['sOrders'])) {
+		$sub_total 		= mysqli_real_escape_string($conn,$_POST['total_amount']);
+		$discount 		= mysqli_real_escape_string($conn,$_POST['discount']);
+		$total 			= mysqli_real_escape_string($conn,$_POST['total']);
+		$advance 		= mysqli_real_escape_string($conn,$_POST['advance']);
+		$payable 		= mysqli_real_escape_string($conn,$_POST['payable']);
+		$deliveryDate 	= mysqli_real_escape_string($conn,$_POST['deliveryDate']);
+
+		$update = "UPDATE order_tb SET deliveryDate = '$deliveryDate' WHERE order_id = '$oid'";
+		$resU = mysqli_query($conn,$update);
+
+		$sql = "INSERT INTO `transaction_tb`(`order_id`, `sub_total`, `discount`, `total`, `advance`, `payable`) VALUES ('$oid', '$sub_total', '$discount', '$total', '$advance', '$payable')";
 		$qry = mysqli_query($conn,$sql);
 		if ($qry) {
-			echo "Insert valo";
-			header('Location:systemUser.php?page=recipt');
+			header('Location:invoice.php');
 		}else{
 			echo "failed insert";
 		}
-
 	}
+		
 
 
  ?>
@@ -80,7 +100,7 @@ if (isset($_POST['pantS'])) {
 <div class="container-fluid">
 	<div class="panel panel-default">
 		<div class="panel-heading">
-			<h3>Add Order</h3>
+			<h3>Add Order<a class="btn btn-success hidden-print pull-right" href="deleteO.php">Cancel</a></h3>
 
 				<?php 
 
@@ -115,7 +135,7 @@ if (isset($_POST['pantS'])) {
 				                <div class="col-sm-2">
 				                    <div class="form-group">
 				                    	<label>Rate</label>
-				                    	<input id="rate" type="text" name="rate" class="form-control rate" value=""/>
+				                    	<input id="rate" type="text" name="rate" class="form-control rate" value="" required="" />
 				                    	<?php 
 											include 'inc/connect.php';
 											$q = "SELECT * FROM rate_tb";
@@ -134,19 +154,23 @@ if (isset($_POST['pantS'])) {
 				                    <div class="form-group">
 				                    	<label>Quantity</label> 
 
-				                    	<input id="quantity" type="text" onblur="set(this.value)" name="quantity" class="form-control quantity" />
+				                    	<input id="quantity" type="text" onblur="set(this.value)" name="quantity" class="form-control quantity" required="" />
 				                    </div>
 				                </div>
 				                <div class="col-sm-2">
 				                    <div class="form-group">
 				                    	<label>Amount</label> 
 
-				                    	<input id="amount" type="text" name="amount" class="form-control amount" />
+				                    	<input id="amount" type="text" name="amount" class="form-control amount" required="" />
 				                    </div>
 				                </div>
 				                <div class="col-sm-3">
 				                    <div class="form-group">
-				                    	<label>Master</label> 
+				                    	<label>Master</label>
+
+				                    	<?php if (isset($mg)): ?>
+				                    		<span style="color: red;"><?php echo $mg;?></span>
+										  <?php endif ?>
 
 				                    	<select name="master" id="batch" onchange="setM(this.value)" class="chosen form-control master">
 				                    		<option disabled="" selected="">Select master</option>
@@ -185,71 +209,71 @@ if (isset($_POST['pantS'])) {
 					            				<form method="POST">
 					            				<div class="col-md-4">
 					            					<div class="form-group required">
-								            			<input type="hidden" class="form-control" name="quantity" id="sq" />
+								            			<input type="hidden" class="form-control" name="quantity" id="sq" required="" />
 								            		</div>
 
 								            		<div class="form-group required">
-								            			<input type="text" class="form-control" name="amount" id="amountS" />
+								            			<input type="hidden" class="form-control" name="amount" id="amountS" required="" />
 								            		</div>
 
 								            		<div class="form-group required">
-								            			<input type="hidden" class="form-control" name="master" id="sm" />
+								            			<input type="hidden" class="form-control" name="master" id="sm" required="" />
 								            		</div>
 
 								            		<div class="form-group required">
 								            			<label class="control-label">Body</label>
-								            			<input type="text" class="form-control" name="body" />
+								            			<input type="text" class="form-control" name="body" required="" />
 								            		</div>
 								            		<div class="form-group required">
 								            			<label class="control-label">Shoulder</label>
-								            			<input type="text" class="form-control" name="shoulder" />
+								            			<input type="text" class="form-control" name="shoulder" required="" />
 								            		</div>
 								            		<div class="form-group required">
 								            			<label class="control-label">Neck</label>
-								            			<input type="text" class="form-control" name="neck" />
+								            			<input type="text" class="form-control" name="neck" required="" />
 								            		</div>
 								            		<div class="form-group required">
 								            			<label class="control-label">Forearm</label>
-								            			<input type="text" class="form-control" name="forearm" />
+								            			<input type="text" class="form-control" name="forearm" required="" />
 								            		</div>
 								            	</div>
 								            	<div class="col-md-4">
 								            		<div class="form-group required">
 								            			<label class="control-label">Belly</label>
-								            			<input type="text" class="form-control" name="belly" />
+								            			<input type="text" class="form-control" name="belly" required="" />
 								            		</div>
 								            		<div class="form-group required">
 								            			<label class="control-label">Body Length</label>
-								            			<input type="text" class="form-control" name="body_length" />
+								            			<input type="text" class="form-control" name="body_length" required="" />
 								            		</div>
 								            		<div class="form-group required">
 								            			<label class="control-label">Armhole</label>
-								            			<input type="text" class="form-control" name="armhole" />
+								            			<input type="text" class="form-control" name="armhole" required="" />
 								            		</div>
 								            		<div class="form-group required">
 								            			<label class="control-label">Cuff</label>
-								            			<input type="text" class="form-control" name="cuff" />
+								            			<input type="text" class="form-control" name="cuff" required="" />
 								            		</div>
 								            	</div>
 								            	<div class="col-md-4">
 								            		<div class="form-group required">
 								            			<label class="control-label">Hip</label>
-								            			<input type="text" class="form-control" name="hip" />
+								            			<input type="text" class="form-control" name="hip" required="" />
 								            		</div>
 								            		<div class="form-group required">
 								            			<label class="control-label">Sleeves Length</label>
-								            			<input type="text" class="form-control" name="sleeves_length" />
+								            			<input type="text" class="form-control" name="sleeves_length" required="" />
 								            		</div>
 								            		<div class="form-group required">
 								            			<label class="control-label">Arm</label>
-								            			<input type="text" class="form-control" name="arm" />
+								            			<input type="text" class="form-control" name="arm" required="" />
 								            		</div>
 								            		<div class="form-group">
-								            			<label class="control-label">Description</label>
-								            			<textarea class="form-control" rows="4" id="address" name="description" placeholder="If any Description needed!"></textarea>
+								            			<label>Description</label>
+								            			<textarea class="form-control" rows="4" id="description" name="description" placeholder="If any Description needed!"></textarea>
 								            		</div>
 								            	</div>
-								            	<input type="submit" name="shirtS" class="btn btn-success b1"/>
+								            	<input type="submit" name="shirtS" class="btn btn-success b1" value="Add" />
 								            </form>
 								            </div>
 
@@ -259,58 +283,58 @@ if (isset($_POST['pantS'])) {
 								            	<form method="POST">
 								            	<div class="col-md-4">
 								            		<div class="form-group required">
-								            			<input type="hidden" class="form-control" name="quantity" id="pq" />
+								            			<input type="hidden" class="form-control" name="quantity" id="pq" required="" />
 								            		</div>
 
 								            		<div class="form-group required">
-								            			<input type="text" class="form-control" name="amount" id="amountP" />
+								            			<input type="hidden" class="form-control" name="amount" id="amountP" required="" />
 								            		</div>
 
 								            		<div class="form-group required">
-								            			<input type="hidden" class="form-control" name="master" id="pm" />
+								            			<input type="hidden" class="form-control" name="master" id="pm" required="" />
 								            		</div>
 								            		<div class="form-group required">
 								            			<label class="control-label">Length</label>
-								            			<input type="text" class="form-control" name="length" />
+								            			<input type="text" class="form-control" name="length" required="" />
 								            		</div>
 								            		<div class="form-group required">
 								            			<label class="control-label">Thigh</label>
-								            			<input type="text" class="form-control" name="thigh" />
+								            			<input type="text" class="form-control" name="thigh" required="" />
 								            		</div>
 								            		<div class="form-group required">
 								            			<label class="control-label">Fly</label>
-								            			<input type="text" class="form-control" name="fly" />
+								            			<input type="text" class="form-control" name="fly" required="" />
 								            		</div>
 								            	</div>
 								            	<div class="col-md-4">
 								            		<div class="form-group required">
 								            			<label class="control-label">Waist</label>
-								            			<input type="text" class="form-control" name="waist" />
+								            			<input type="text" class="form-control" name="waist" required="" />
 								            		</div>
 								            		<div class="form-group required">
 								            			<label class="control-label">High</label>
-								            			<input type="text" class="form-control" name="high" />
+								            			<input type="text" class="form-control" name="high" required="" />
 								            		</div>
 								            		<div class="form-group required">
 								            			<label class="control-label">Bottom</label>
-								            			<input type="text" class="form-control" name="bottom" />
+								            			<input type="text" class="form-control" name="bottom" required="" />
 								            		</div>
 								            	</div>
 								            	<div class="col-md-4">
 								            		<div class="form-group required">
 								            			<label class="control-label">Hip</label>
-								            			<input type="text" class="form-control" name="hip" />
+								            			<input type="text" class="form-control" name="hip" required="" />
 								            		</div>
 								            		<div class="form-group required">
 								            			<label class="control-label">Zipper</label>
-								            			<input type="text" class="form-control" name="zipper" />
+								            			<input type="text" class="form-control" name="zipper" required="" />
 								            		</div>
-								            		<div class="form-group required">
-								            			<label class="control-label">Description</label>
-								            			<textarea class="form-control" rows="4" id="address" name="description" placeholder="If any Description needed!"></textarea>
+								            		<div class="form-group">
+								            			<label>Description</label>
+								            			<textarea class="form-control" rows="4" id="description" name="description" placeholder="If any Description needed!"></textarea>
 								            		</div>
 								            	</div>
-								            	<input type="submit" name="pantS" class="btn btn-success b1"/>
+								            	<input type="submit" name="pantS" class="btn btn-success b1" value="Add" />
 								            	</form>
 								            </div>
 								        
@@ -421,10 +445,8 @@ if (isset($_POST['pantS'])) {
 
 					            	<?php $q = "SELECT * FROM pant_tb s INNER JOIN master_tb m ON s.master_id = m.master_id WHERE order_id = '$oid'";
 					            		$query = mysqli_query($conn,$q);
-					            		$i = 1;
+					            		// $i = 1;
 										while ($res= mysqli_fetch_array($query)) {
-											
-
 					            	 ?>
 					            	<tr>
 					            		<td><?php if ($res['master_type'] == 'Pant') {
@@ -469,32 +491,40 @@ if (isset($_POST['pantS'])) {
 
 
 							       ?>
-							      <input id="total_amount" type="text" class="form-control" name="total_amount" placeholder="Total" value="<?php echo $val1+$val2; ?>">
+							      <input id="total_amount" type="text" class="form-control" name="total_amount" placeholder="Total" value="<?php echo $val1+$val2; ?>" />
 							    </div>
 						    </div>
 						    <div class="col-md-3">
 							    <div class="input-group">
 							      <span class="input-group-addon" style="background-color: #3A80D7; color: white;">Discount</span>
-							      <input id="discount" type="text" class="form-control" name="discount" placeholder="Discount">
+							      <input id="discount" type="text" class="form-control" name="discount" placeholder="Discount" required="">
 							    </div>
 						    </div>
 						    <div class="col-md-3">
 							    <div class="input-group">
 							      <span class="input-group-addon" style="background-color: #4E54B6; color: white;">Total</span>
-							      <input id="total" type="text" class="form-control" name="total" placeholder="Total">
+							      <input id="total" type="text" class="form-control" name="total" placeholder="Total" required="">
 							    </div>
 						    </div>
 						    <div class="col-md-3">
 							    <div class="input-group">
 							      <span class="input-group-addon" style="background-color: #703688; color: white;">Advance</span>
-							      <input id="advance" type="text" class="form-control" name="advance" placeholder="Advance">
+							      <input id="advance" type="text" class="form-control" name="advance" placeholder="Advance" required="">
 							    </div>
 						    </div>
-						    <input id="payable" type="text" class="form-control" name="payable" >
-						    <input id="paystatus" type="text" class="form-control" name="paystatus" >
+						    <input id="payable" type="hidden" class="form-control" name="payable" >
 						</div>
 
 						    <hr/>
+
+						    			    
+							<div class="form-group">
+								<label>Delivery Date</label>
+								<div class='input-group date' id='datetimepicker1'>
+									<input type='date' name="deliveryDate" class="form-control" value="<?php date_default_timezone_set('Asia/Dhaka'); echo date('Y-m-d') ?>"/>
+								</div>
+							</div>
+						
 
 						    <!--<div class="row">
 						    	<div class="form-group">
@@ -508,12 +538,14 @@ if (isset($_POST['pantS'])) {
 
 						<div class="row">		
 							<center><input type="submit" name="sOrders" class="btn btn-success b1"/></center>
+							
 						</div>
 						</form>
 			</div>
 		</div>
 	</div>
 </div>
+
 
 	<script type="text/javascript">
 		function set(x) {
