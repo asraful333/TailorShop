@@ -20,14 +20,24 @@
 							</div>
 							<form class="form-auth-small" action="" style="margin: 10px;">
 								<div class="form-group">
-									<label for="signin-username" class="control-label sr-only">Username</label>
+									<label for="signin-username" class="control-label sr-only">User Name</label>
 									<input type="text" class="form-control" id="username" name="username" placeholder="Username">
+								</div>
+								<div class="form-group">
+									<label for="signin-usertype" class="control-label sr-only">User Type</label>
+									<select name="gender" id="gender" class="form-control">
+								      <option disabled="" selected="">Select</option>  
+								      <option value="Admin">Admin</option>  
+								      <option value="SyatemUser">SystemUser</option>
+								      <option value="Master">Master</option>
+								      <option value="Customer">Customer</option>
+							     	</select>
 								</div>
 								<div class="form-group">
 									<label for="signin-password" class="control-label sr-only">Password</label>
 									<input type="password" class="form-control" id="password" name="password" placeholder="Password">
 								</div>
-								<button type="submit" class="btn btn-primary btn-lg btn-block"><a href="systemUser.php">LOGIN</a></button>
+								<button type="submit" class="btn btn-primary btn-lg btn-block" ><a href="systemUser.php" style="color: white;">LOGIN</a></button>
 							</form>
 					</div>
 				</div>

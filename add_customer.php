@@ -3,11 +3,12 @@
 
 	if (isset($_POST['submit'])) {
 
-		$name = mysqli_real_escape_string($conn,$_POST['name']);
-		$age = mysqli_real_escape_string($conn,$_POST['age']);
-		$phone = mysqli_real_escape_string($conn,$_POST['phone']);
-		$address = mysqli_real_escape_string($conn,$_POST['address']);
-		$gender = mysqli_real_escape_string($conn,$_POST['gender']);
+		$name 		= mysqli_real_escape_string($conn,$_POST['name']);
+		$age 		= mysqli_real_escape_string($conn,$_POST['age']);
+		$phone 		= mysqli_real_escape_string($conn,$_POST['phone']);
+		$address 	= mysqli_real_escape_string($conn,$_POST['address']);
+		$gender 	= mysqli_real_escape_string($conn,$_POST['gender']);
+		$password	= md5($phone);
 
 		$check = "SELECT * FROM customer_tb WHERE customer_phone ='$phone'";
 		$res_c = mysqli_query($conn,$check) or die(mysqli_error($conn));
@@ -17,11 +18,11 @@
 		}
 		else{
 
-			$qr = "INSERT INTO `customer_tb`(`customer_name`, `customer_age`, `customer_phone`,`customer_address`,`customer_gender`) VALUES ('$name','$age','$phone','$address','$gender')";
+			$qr = "INSERT INTO `customer_tb`(`customer_name`, `customer_age`, `customer_phone`,`customer_address`,`customer_gender`,`password`) VALUES ('$name','$age','$phone','$address','$gender','$password')";
 
 			$qry = mysqli_query($conn,$qr);
 			if ($qry) {
-				header('Location: user.php?page=customers_list');
+				header('Location: systemUser.php?page=customers_list');
 			}else{
 				echo "Insert Failed!..";
 			}
@@ -45,13 +46,13 @@
 								    </div>
 								  </div>
 								  <div class="form-group required">
-								    <label class="control-label col-sm-2" for="pwd">Age:</label>
+								    <label class="control-label col-sm-2" for="age">Age:</label>
 								    <div class="col-sm-10"> 
 								      <input type="text" class="form-control" name="age" id="age" placeholder="Enter Age" required="" />
 								    </div>
 								  </div>
 								  <div class="form-group required">
-								    <label class="control-label col-sm-2" for="pwd">Phone:</label>
+								    <label class="control-label col-sm-2" for="phone">Phone:</label>
 								    <div class="col-sm-10"> 
 								      <input type="text" class="form-control" name="phone" id="phone" placeholder="Enter Phone" required="" />
 								      									  
@@ -62,19 +63,19 @@
 								    </div>
 								  </div>
 								  <div class="form-group required">
-								    <label class="control-label col-sm-2" for="pwd">Address:</label>
+								    <label class="control-label col-sm-2" for="address">Address:</label>
 								    <div class="col-sm-10"> 
 								      <textarea class="form-control" rows="4" name="address" id="address" placeholder="Enter Address" required=""></textarea>
 								    </div>
 								  </div>
 								  <div class="form-group required">
-								    <label class="control-label col-sm-2" for="pwd">Gender:</label>
+								    <label class="control-label col-sm-2" for="gender">Gender:</label>
 								    <div class="col-sm-10"> 
 								      <label class="radio-inline"><input type="radio" name="gender" value="Male" checked>Male</label>
 									  <label class="radio-inline"><input type="radio" name="gender" value="Female">Female</label>
 									  <label class="radio-inline"><input type="radio" name="gender" value="Other">Other</label>
 								    </div>
-								  </div>							  
+								  </div>						  
 								  <div class="form-group"> 
 								    <div class="col-sm-offset-2 col-sm-10">
 								      <button type="submit" name="submit" class="btn btn-success">Submit</button>

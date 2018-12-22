@@ -5,7 +5,7 @@
 			<!-- NAVBAR -->
 			<nav class="navbar navbar-default navbar-fixed-top">
 				<div class="brand">
-					<a href="master.php"><img src="assets/img/logo-ori.png" alt="Taior Logo" class="img-responsive logo"></a>
+					<a href="customer.php"><img src="assets/img/logo-ori.png" alt="Taior Logo" class="img-responsive logo"></a>
 				</div>
 				<div class="container-fluid">
 					<div class="navbar-btn">
@@ -26,7 +26,7 @@
 						<ul class="nav">
 							<li><a href="" style="font-size: 25px;"> <span>Master</span></a></li>
 
-							<li><a href="master.php?page=dashboardM" class="active"><i class="lnr lnr-home"></i><span>Dashboard</span></a></li>
+							<li><a href="master.php?page=dashboardC" class="active"><i class="lnr lnr-home"></i><span>Dashboard</span></a></li>
 
 <!-- 							<li>
 								<a href="#sub" data-toggle="collapse" class="collapsed"><i class="lnr lnr-file-add"></i> <span>Order</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>

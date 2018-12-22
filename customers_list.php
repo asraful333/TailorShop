@@ -10,6 +10,7 @@
 		$address 		= mysqli_real_escape_string($conn,$_POST['uAddress']);
 		$gender 		= mysqli_real_escape_string($conn,$_POST['uGender']);
 
+
 		$check = "SELECT * FROM customer_tb WHERE customer_phone ='$phone' AND customer_id!='$customer_id'";
 		$res_c = mysqli_query($conn,$check) or die(mysqli_error($conn));
 
@@ -34,8 +35,9 @@
 	$customer_phone 		= mysqli_real_escape_string($conn,$_POST['phone']);
 	$customer_address 		= mysqli_real_escape_string($conn,$_POST['address']);
 	$customer_gender 		= mysqli_real_escape_string($conn,$_POST['gender']);
+	$password				= md5($customer_phone);
 
-	$qry = "INSERT INTO `customer_tb`(`customer_name`, `customer_age`, `customer_phone`,`customer_address`,`customer_gender`) VALUES ('$customer_name','$customer_age','$customer_phone','$customer_address','$customer_gender')";
+	$qry = "INSERT INTO `customer_tb`(`customer_name`, `customer_age`, `customer_phone`,`customer_address`,`customer_gender`,`password`) VALUES ('$customer_name','$customer_age','$customer_phone','$customer_address','$customer_gender','$password')";
 	$rslt = mysqli_query($conn,$qry);
 	header('Location: systemUser.php?page=customers_list');
 	}
@@ -152,32 +154,32 @@
 						<form method="POST" action="" id="insert_form">
 					    
 					    	<div class="form-group required">
-					     <label class="control-label">Enter Customer Name</label>
-					     <input type="text" name="name" id="name" class="form-control" required="" />
-					     <label id="lblname" style="color: red;"></label>
+							     <label class="control-label">Customer Name</label>
+							     <input type="text" name="name" id="name" class="form-control" required="" />
+							     <label id="lblname" style="color: red;"></label>
 					     	</div>
 					     	<div class="form-group required">
-					     <label class="control-label">Enter Age</label>
-					     <input type="text" name="age" id="age" class="form-control" required="" />
-					     <label id="lblage" style="color: red;"></label>
+							     <label class="control-label">Age</label>
+							     <input type="text" name="age" id="age" class="form-control" required="" />
+							     <label id="lblage" style="color: red;"></label>
 					     	</div>
 					     	<div class="form-group required">
-					     <label class="control-label">Enter Phone Number</label>
-					     <input type="number" name="phone" id="phone" class="form-control" required="" />
-					     <label id="lblphone" style="color: red;"></label>
+							     <label class="control-label">Phone Number</label>
+							     <input type="number" name="phone" id="phone" class="form-control" required="" />
+							     <label id="lblphone" style="color: red;"></label>
 					     	</div>
 					     	<div class="form-group required">
-					     <label class="control-label">Enter Address</label>
-					     <textarea name="address" id="address" class="form-control" required=""></textarea>
-					     <label id="lbladdress" style="color: red;"></label>
+							     <label class="control-label">Address</label>
+							     <textarea name="address" id="address" class="form-control" required=""></textarea>
+							     <label id="lbladdress" style="color: red;"></label>
 					     	</div>
 					     	<div class="form-group required">
-					     <label class="control-label">Select Gender</label>
-					     <select name="gender" id="gender" class="form-control">
-					      <option value="Male">Male</option>  
-					      <option value="Female">Female</option>
-					      <option value="Other">Other</option>
-					     </select>
+							     <label class="control-label">Select Gender</label>
+							     <select name="gender" id="gender" class="form-control">
+								      <option value="Male">Male</option>  
+								      <option value="Female">Female</option>
+								      <option value="Other">Other</option>
+							     </select>
 					     	</div>	
 					     	<input type="submit" name="insert" value="Insert" class="btn btn-success" />		    
 					   </div>

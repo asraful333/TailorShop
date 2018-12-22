@@ -9,13 +9,12 @@
 		$phone 		= mysqli_real_escape_string($conn,$_POST['uPhone']);
 		$address 	= mysqli_real_escape_string($conn,$_POST['uAddress']);
 		$gender 	= mysqli_real_escape_string($conn,$_POST['uGender']);
-		$type 		= mysqli_real_escape_string($conn,$_POST['uType']);
 
 
-			$sql= "UPDATE systemUser_tb SET sUser_name='$name', sUser_age='$age', sUser_phone='$phone', sUser_address='$address', sUser_gender='$gender', sUser_type='$type' WHERE sUser_id='$id'";
+			$sql= "UPDATE systemUser_tb SET sUser_name='$name', sUser_age='$age', sUser_phone='$phone', sUser_address='$address', sUser_gender='$gender' WHERE sUser_id='$id'";
 
 			$qry= mysqli_query($conn,$sql);
-			header('Location: admin.php?page=staff_list');
+			header('Location: admin.php?page=systemUser_list');
 		
 	}
 
@@ -25,11 +24,11 @@
 	$sUser_phone 			= mysqli_real_escape_string($conn,$_POST['phone']);
 	$sUser_address 			= mysqli_real_escape_string($conn,$_POST['address']);
 	$sUser_gender 			= mysqli_real_escape_string($conn,$_POST['gender']);
-	$sUser_type 			= mysqli_real_escape_string($conn,$_POST['type']);
+	$password				= md5($sUser_phone);
 
-	$qry = "INSERT INTO `systemUser_tb`(`sUser_name`, `sUser_age`, `sUser_phone`,`sUser_address`,`sUser_gender`,`sUser_type`) VALUES ('$sUser_name','$sUser_age','$sUser_phone','$sUser_address','$sUser_gender','$sUser_type')";
+	$qry = "INSERT INTO `systemUser_tb`(`sUser_name`, `sUser_age`, `sUser_phone`,`sUser_address`,`sUser_gender`,`password`) VALUES ('$sUser_name','$sUser_age','$sUser_phone','$sUser_address','$sUser_gender','$password')";
 	$rslt = mysqli_query($conn,$qry);
-	header('Location: admin.php?page=staff_list');
+	header('Location: admin.php?page=systemUser_list');
 	}
 
 ?>
@@ -50,7 +49,6 @@
 					<th>Phone</th>
 					<th>Address</th>
 					<th>Gender</th>
-					<th>Type</th>
 					<th>Add Date</th>
 					<th>Action</th>
 				</tr>
@@ -72,7 +70,6 @@
 					<td>+88<?php echo $res['sUser_phone']; ?></td>
 					<td><?php echo $res['sUser_address']; ?></td>
 					<td><?php echo $res['sUser_gender']; ?></td>
-					<td><?php echo $res['sUser_type']; ?></td>
 					<td><?php echo $res['datetime']; ?></td>
 					<td><button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#<?php echo $res['sUser_id']; ?>">Edit</button></td>
 				</tr>
@@ -140,22 +137,22 @@
 						<form method="POST" action="" id="insert_form">
 					    
 					    	<div class="form-group">
-					     <label>Enter System User Name</label>
+					     <label>System User Name</label>
 					     <input type="text" name="name" id="name" class="form-control" required="" />
 					     <label id="lblname" style="color: red;"></label>
 					     	</div>
 					     	<div class="form-group">
-					     <label>Enter Age</label>
+					     <label>Age</label>
 					     <input type="text" name="age" id="age" class="form-control" required="" />
 					     <label id="lblage" style="color: red;"></label>
 					     	</div>
 					     	<div class="form-group">
-					     <label>Enter Phone Number</label>
+					     <label>Phone Number</label>
 					     <input type="number" name="phone" id="phone" class="form-control" required="" />
 					     <label id="lblphone" style="color: red;"></label>
 					     	</div>
 					     	<div class="form-group">
-					     <label>Enter Address</label>
+					     <label>Address</label>
 					     <textarea name="address" id="address" class="form-control" required=""></textarea>
 					     <label id="lbladdress" style="color: red;"></label>
 					     	</div>
@@ -164,9 +161,6 @@
 					     <label class="radio-inline"><input type="radio" name="gender" value="Male" checked>Male</label>
 						 <label class="radio-inline"><input type="radio" name="gender" value="Female">Female</label>
 						 <label class="radio-inline"><input type="radio" name="gender" value="Other">Other</label>
-					     	</div>
-					     	<div class="form-group">
-					     <input type="hidden" name="type" id="type" class="form-control" value="System User" />
 					     	</div>	
 					     	<input type="submit" name="insert" value="Insert" class="btn btn-success" />		    
 					   </div>

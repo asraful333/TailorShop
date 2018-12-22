@@ -44,8 +44,6 @@ if (isset($_POST['shirtS'])) {
 
 // Pant insert code
 if (isset($_POST['pantS'])) {
-		// $service = mysqli_real_escape_string($conn,$_POST['service']);
-		// $rate = mysqli_real_escape_string($conn,$_POST['rate']);
 		$quantity 		= mysqli_real_escape_string($conn,$_POST['quantity']);
 		$amount 		= mysqli_real_escape_string($conn,$_POST['amount']);
 		$master 		= mysqli_real_escape_string($conn,$_POST['master']);

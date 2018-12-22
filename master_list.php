@@ -26,8 +26,9 @@
 	$master_address 		= mysqli_real_escape_string($conn,$_POST['address']);
 	$master_gender 			= mysqli_real_escape_string($conn,$_POST['gender']);
 	$master_type 			= mysqli_real_escape_string($conn,$_POST['type']);
+	$password				= md5($master_phone);
 
-	$qry = "INSERT INTO `master_tb`(`master_name`, `master_age`, `master_phone`,`master_address`,`master_gender`,`master_type`) VALUES ('$master_name','$master_age','$master_phone','$master_address','$master_gender','$master_type')";
+	$qry = "INSERT INTO `master_tb`(`master_name`, `master_age`, `master_phone`,`master_address`,`master_gender`,`master_type`,`password`) VALUES ('$master_name','$master_age','$master_phone','$master_address','$master_gender','$master_type','$password')";
 	$rslt = mysqli_query($conn,$qry);
 	header('Location: admin.php?page=master_list');
 	}
@@ -106,7 +107,6 @@
 										<select class="form-control" name="uType" id="sel1">
 											<option value="Shirt" <?php if( $res['master_type']=='Shirt'){echo "selected";};?> >Shirt</option>
 											<option value="Pant" <?php if( $res['master_type']=='Pant'){echo "selected";};?> >Pant</option>
-											<option value="Suit" <?php if( $res['master_type']=='Suit'){echo "selected";};?> >Suit</option>
 										</select><br/>
 							<input type="submit" name="submit" value="Update" class="btn btn-success" />
 				          </form>
@@ -142,38 +142,37 @@
 						<form method="POST" action="" id="insert_form">
 					    
 					    	<div class="form-group">
-					     <label>Enter Master Name</label>
-					     <input type="text" name="name" id="name" class="form-control" required="" />
-					     <label id="lblname" style="color: red;"></label>
+							     <label>Master Name</label>
+							     <input type="text" name="name" id="name" class="form-control" required="" />
+							     <label id="lblname" style="color: red;"></label>
 					     	</div>
 					     	<div class="form-group">
-					     <label>Enter Age</label>
-					     <input type="text" name="age" id="age" class="form-control" required="" />
-					     <label id="lblage" style="color: red;"></label>
+							     <label>Age</label>
+							     <input type="text" name="age" id="age" class="form-control" required="" />
+							     <label id="lblage" style="color: red;"></label>
 					     	</div>
 					     	<div class="form-group">
-					     <label>Enter Phone Number</label>
-					     <input type="number" name="phone" id="phone" class="form-control" required="" />
-					     <label id="lblphone" style="color: red;"></label>
+							     <label>Phone Number</label>
+							     <input type="number" name="phone" id="phone" class="form-control" required="" />
+							     <label id="lblphone" style="color: red;"></label>
 					     	</div>
 					     	<div class="form-group">
-					     <label>Enter Address</label>
-					     <textarea name="address" id="address" class="form-control" required=""></textarea>
-					     <label id="lbladdress" style="color: red;"></label>
+							     <label>Address</label>
+							     <textarea name="address" id="address" class="form-control" required=""></textarea>
+							     <label id="lbladdress" style="color: red;"></label>
 					     	</div>
 					     	<div class="form-group">
-					     <label>Select Gender</label><br/>
-					     <label class="radio-inline"><input type="radio" name="gender" value="Male" checked>Male</label>
-						 <label class="radio-inline"><input type="radio" name="gender" value="Female">Female</label>
-						 <label class="radio-inline"><input type="radio" name="gender" value="Other">Other</label>
+							     <label>Select Gender</label><br/>
+							     <label class="radio-inline"><input type="radio" name="gender" value="Male" checked>Male</label>
+								 <label class="radio-inline"><input type="radio" name="gender" value="Female">Female</label>
+								 <label class="radio-inline"><input type="radio" name="gender" value="Other">Other</label>
 					     	</div>
 					     	<div class="form-group">
-					     <label>Master Type</label>
-					     <select class="form-control" name="type" id="sel1">
-											<option value="Shirt" >Shirt</option>
-											<option value="Pant"  >Pant</option>
-											<option value="Suit"  >Suit</option>
-										</select>
+							     <label>Master Type</label>
+							     <select class="form-control" name="type" id="sel1">
+									<option value="Shirt" >Shirt</option>
+									<option value="Pant"  >Pant</option>
+								 </select>
 					     	</div>	
 					     	<input type="submit" name="insert" value="Insert" class="btn btn-success" />		    
 					   </div>
