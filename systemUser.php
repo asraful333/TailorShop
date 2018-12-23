@@ -1,4 +1,11 @@
-<?php include 'inc/headerplugin.php'; ?>
+<?php 
+session_start();
+if (!isset($_SESSION["SYSTEMUSER"]) || $_SESSION["SYSTEMUSER"]!="IS_ACTIVE") {
+	echo '<script type="text/javascript">location.href="index.php";</script>';
+}
+
+include 'inc/headerplugin.php'; 
+?>
 
 	<body>
 		<div id="wrapper">
@@ -13,7 +20,7 @@
 					</div>
 					<div id="navbar-menu">
 						<ul class="nav navbar-nav navbar-right">						
-							<li><a href="#"><i class="lnr lnr-exit"></i>Logout</a></li>				
+							<li><a href="logout.php"><i class="lnr lnr-exit"></i>Logout</a></li>				
 						</ul>
 					</div>
 				</div>

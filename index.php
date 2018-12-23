@@ -1,4 +1,70 @@
-<?php
+<?php 
+	session_start();
+	if (isset($_SESSION["ADMIN"]) && $_SESSION["ADMIN"]=="IS_ACTIVE") {
+		echo '<script type="text/javascript">location.href="admin.php";</script>';
+	}
+	if (isset($_SESSION["SYSTEMUSER"]) && $_SESSION["SYSTEMUSER"]=="IS_ACTIVE") {
+		echo '<script type="text/javascript">location.href="systemUser.php";</script>';
+	}
+
+	include 'inc/connect.php';
+
+	if(isset($_POST['username']) && isset($_POST['type']) && isset($_POST['password'])){
+
+	$username=$_POST['username'];
+	$type=$_POST['type'];
+	$password=$_POST['password'];
+	$pwd=md5($password);
+
+	//echo $username,$type,$pwd;
+
+	if ($type == 'Admin') {
+		$sql = "SELECT * FROM admin_tb WHERE admin_name = '$username'";
+		$query = mysqli_query($conn,$sql);
+		$count = mysqli_num_rows($query);
+		if($count==1){
+			while ($res= mysqli_fetch_array($query)) {
+				$pass= $res["password"];
+				$uid= $res["admin_id"];
+			}
+			if (trim($pass) == trim($password)) {
+				$_SESSION["ADMIN"]="IS_ACTIVE";
+				$_SESSION["userid"]=$uid;
+				echo '<script type="text/javascript">location.href="admin.php";</script>';				
+			}else{
+				$msg= '<div class="alert alert-warning alert-dismissible" role="alert" style="margin-top: 10px; margin-bottom: 0px;"><i class="fa fa-warning"></i> Password is Incorrect.</div>';
+			}
+
+		}else{
+			$msg= '<div class="alert alert-warning alert-dismissible" role="alert" style="margin-top: 10px; margin-bottom: 0px;"><i class="fa fa-warning"></i> Username is not exist.</div>';
+		}
+
+	}
+	if ($type == 'SystemUser') {
+		$sql = "SELECT * FROM systemuser_tb WHERE sUser_name = '$username'";
+		$query = mysqli_query($conn,$sql);
+		$count = mysqli_num_rows($query);
+		if($count==1){
+			while ($res= mysqli_fetch_array($query)) {
+				$pass= $res["password"];
+				$uid= $res["sUser_id"];
+			}
+			if (trim($pass) == trim($pwd)) {
+				$_SESSION["SYSTEMUSER"]="IS_ACTIVE";
+				$_SESSION["userid"]=$uid;
+				echo '<script type="text/javascript">location.href="systemUser.php";</script>';				
+			}else{
+				$msg= '<div class="alert alert-warning alert-dismissible" role="alert" style="margin-top: 10px; margin-bottom: 0px;"><i class="fa fa-warning"></i> Password is Incorrect.</div>';
+			}
+
+		}else{
+			$msg= '<div class="alert alert-warning alert-dismissible" role="alert" style="margin-top: 10px; margin-bottom: 0px;"><i class="fa fa-warning"></i> Username is not exist.</div>';
+		}
+
+	}
+}
+
+
 	include 'inc/headerplugin.php';
 ?>
 
@@ -18,26 +84,29 @@
 								<div class="logo text-center"><img src="assets/img/sewing.png" alt="Klorofil Logo" style="width: 100px; height: 60px;"> <h1>Tailor Shop</h1></div>
 								<p class="lead">Login to your account</p>
 							</div>
-							<form class="form-auth-small" action="" style="margin: 10px;">
+							<?php if (isset($msg)): ?>
+								<span><?php echo $msg;?></span>
+							<?php endif ?>
+							<form class="form-auth-small" action="" method="POST" style="margin: 10px;">
 								<div class="form-group">
 									<label for="signin-username" class="control-label sr-only">User Name</label>
-									<input type="text" class="form-control" id="username" name="username" placeholder="Username">
+									<input type="text" class="form-control" id="username" name="username" placeholder="Username" required="">
 								</div>
 								<div class="form-group">
 									<label for="signin-usertype" class="control-label sr-only">User Type</label>
-									<select name="gender" id="gender" class="form-control">
+									<select name="type" id="type" class="form-control">
 								      <option disabled="" selected="">Select</option>  
 								      <option value="Admin">Admin</option>  
-								      <option value="SyatemUser">SystemUser</option>
+								      <option value="SystemUser">SystemUser</option>
 								      <option value="Master">Master</option>
 								      <option value="Customer">Customer</option>
 							     	</select>
 								</div>
 								<div class="form-group">
 									<label for="signin-password" class="control-label sr-only">Password</label>
-									<input type="password" class="form-control" id="password" name="password" placeholder="Password">
+									<input type="password" class="form-control" id="password" name="password" placeholder="Password" required="">
 								</div>
-								<button type="submit" class="btn btn-primary btn-lg btn-block" ><a href="systemUser.php" style="color: white;">LOGIN</a></button>
+								<button type="submit" class="btn btn-primary btn-lg btn-block" name="login" style="color: white;" >LOGIN</button>
 							</form>
 					</div>
 				</div>

@@ -1,5 +1,4 @@
 <?php 
-	session_start();
 	include 'inc/connect.php';
 if (isset($_SESSION["order"]) && isset($_SESSION["serial"]) && isset($_SESSION["customerid"]) && $_SESSION["order"]=='yes') {
 	header('location:systemUser.php?page=suborder');

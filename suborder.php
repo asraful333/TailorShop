@@ -1,5 +1,4 @@
 <?php 
-session_start();
 include 'inc/connect.php';
 if (isset($_SESSION["order"]) && isset($_SESSION["serial"]) && isset($_SESSION["customerid"]) && $_SESSION["order"]=='yes') {
 	$open = $_SESSION["order"];
@@ -68,28 +67,6 @@ if (isset($_POST['pantS'])) {
 		}
 	}
 // End pant code
-
-// Insert transaction and update order
-if (isset($_POST['sOrders'])) {
-		$sub_total 		= mysqli_real_escape_string($conn,$_POST['total_amount']);
-		$discount 		= mysqli_real_escape_string($conn,$_POST['discount']);
-		$total 			= mysqli_real_escape_string($conn,$_POST['total']);
-		$advance 		= mysqli_real_escape_string($conn,$_POST['advance']);
-		$payable 		= mysqli_real_escape_string($conn,$_POST['payable']);
-		$deliveryDate 	= mysqli_real_escape_string($conn,$_POST['deliveryDate']);
-
-		$update = "UPDATE order_tb SET deliveryDate = '$deliveryDate' WHERE order_id = '$oid'";
-		$resU = mysqli_query($conn,$update);
-
-		$sql = "INSERT INTO `transaction_tb`(`order_id`, `sub_total`, `discount`, `total`, `advance`, `payable`) VALUES ('$oid', '$sub_total', '$discount', '$total', '$advance', '$payable')";
-		$qry = mysqli_query($conn,$sql);
-		if ($qry) {
-			header('Location:invoice.php');
-		}else{
-			echo "failed insert";
-		}
-	}
-		
 
 
  ?>
@@ -466,7 +443,7 @@ if (isset($_POST['sOrders'])) {
 				    </div>
 
 				    <hr/>
-				    	<form method="POST" action="">
+				    	<form method="POST" action="invoice.php">
 				    	<div class="row">        
 						    <div class="col-md-3">
 							    <div class="input-group">
@@ -534,7 +511,7 @@ if (isset($_POST['sOrders'])) {
 								  </div>
 						    </div>-->
 
-						<div class="row">		
+						<div class="row">	
 							<center><input type="submit" name="sOrders" class="btn btn-success b1"/></center>
 							
 						</div>
