@@ -6,6 +6,12 @@
 	if (isset($_SESSION["SYSTEMUSER"]) && $_SESSION["SYSTEMUSER"]=="IS_ACTIVE") {
 		echo '<script type="text/javascript">location.href="systemUser.php";</script>';
 	}
+	if (isset($_SESSION["MASTER"]) && $_SESSION["MASTER"]=="IS_ACTIVE") {
+		echo '<script type="text/javascript">location.href="master.php";</script>';
+	}
+	if (isset($_SESSION["CUSTOMER"]) && $_SESSION["CUSTOMER"]=="IS_ACTIVE") {
+		echo '<script type="text/javascript">location.href="customer.php";</script>';
+	}
 
 	include 'inc/connect.php';
 
@@ -16,8 +22,7 @@
 	$password=$_POST['password'];
 	$pwd=md5($password);
 
-	//echo $username,$type,$pwd;
-
+	// START ADMIN LOGIN
 	if ($type == 'Admin') {
 		$sql = "SELECT * FROM admin_tb WHERE admin_name = '$username'";
 		$query = mysqli_query($conn,$sql);
@@ -40,6 +45,9 @@
 		}
 
 	}
+	// END ADMIN LOGIN
+
+	// START SYSTEMUSER LOGIN
 	if ($type == 'SystemUser') {
 		$sql = "SELECT * FROM systemuser_tb WHERE sUser_name = '$username'";
 		$query = mysqli_query($conn,$sql);
@@ -62,6 +70,57 @@
 		}
 
 	}
+	// END SYSTEMUSER LOGIN
+
+	// START MASTER LOGIN
+	if ($type == 'Master') {
+		$sql = "SELECT * FROM master_tb WHERE master_name = '$username'";
+		$query = mysqli_query($conn,$sql);
+		$count = mysqli_num_rows($query);
+		if($count==1){
+			while ($res= mysqli_fetch_array($query)) {
+				$pass= $res["password"];
+				$uid= $res["master_id"];
+			}
+			if (trim($pass) == trim($pwd)) {
+				$_SESSION["MASTER"]="IS_ACTIVE";
+				$_SESSION["userid"]=$uid;
+				echo '<script type="text/javascript">location.href="systemUser.php";</script>';				
+			}else{
+				$msg= '<div class="alert alert-warning alert-dismissible" role="alert" style="margin-top: 10px; margin-bottom: 0px;"><i class="fa fa-warning"></i> Password is Incorrect.</div>';
+			}
+
+		}else{
+			$msg= '<div class="alert alert-warning alert-dismissible" role="alert" style="margin-top: 10px; margin-bottom: 0px;"><i class="fa fa-warning"></i> Username is not exist.</div>';
+		}
+
+	}
+	// END MASTER LOGIN
+
+	// START CUSTOMER LOGIN
+	if ($type == 'Customer') {
+		$sql = "SELECT * FROM customer_tb WHERE customer_name = '$username'";
+		$query = mysqli_query($conn,$sql);
+		$count = mysqli_num_rows($query);
+		if($count==1){
+			while ($res= mysqli_fetch_array($query)) {
+				$pass= $res["password"];
+				$uid= $res["customer_id"];
+			}
+			if (trim($pass) == trim($pwd)) {
+				$_SESSION["CUSTOMER"]="IS_ACTIVE";
+				$_SESSION["userid"]=$uid;
+				echo '<script type="text/javascript">location.href="systemUser.php";</script>';				
+			}else{
+				$msg= '<div class="alert alert-warning alert-dismissible" role="alert" style="margin-top: 10px; margin-bottom: 0px;"><i class="fa fa-warning"></i> Password is Incorrect.</div>';
+			}
+
+		}else{
+			$msg= '<div class="alert alert-warning alert-dismissible" role="alert" style="margin-top: 10px; margin-bottom: 0px;"><i class="fa fa-warning"></i> Username is not exist.</div>';
+		}
+
+	}
+	// END CUSTOMER LOGIN
 }
 
 

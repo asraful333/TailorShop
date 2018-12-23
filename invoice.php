@@ -5,6 +5,7 @@ if (isset($_SESSION["order"]) && isset($_SESSION["serial"]) && isset($_SESSION["
 	$open = $_SESSION["order"];
 	$serial =  $_SESSION["serial"];
 	$customerid = $_SESSION["customerid"];
+	$userid = $_SESSION["userid"];
 	$q = "SELECT * FROM order_tb WHERE serial='$serial'";
 			$query = mysqli_query($conn,$q);
 			while ($res= mysqli_fetch_array($query)) {
@@ -172,18 +173,7 @@ include 'inc/headerplugin.php';
 	<p style="text-align: center;">It's computer generated</p>
 	<div class="row">
 		<div class="col-md-6">
-			<?php 
-
-				$q = "SELECT * FROM systemuser_tb WHERE sUser_id='".$_SESSION["userid"]."'"; 
-				$query = mysqli_query($conn,$q);
-					while ($res= mysqli_fetch_array($query)) {
-						$name= $res['sUser_name'];
-				?>
-				<p>Print by: <?php echo $name; ?></p>
-				<?php
-					} 
-				?> 
-			
+			<p>Print by: </p>
 		</div>
 		<div class="col-md-6"><p class="pull-right">Print Date: <?php date_default_timezone_set('Asia/Dhaka'); echo date('Y-m-d') ?></p></div>
 	</div>
