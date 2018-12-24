@@ -71,7 +71,7 @@
 					<td><?php echo $res['sUser_address']; ?></td>
 					<td><?php echo $res['sUser_gender']; ?></td>
 					<td><?php echo $res['datetime']; ?></td>
-					<td><button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#<?php echo $res['sUser_id']; ?>">Edit</button></td>
+					<td><button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#<?php echo $res['sUser_id']; ?>">Edit</button>|<button type="button" class="btn btn-danger btn-lg"><a style="color: white;" href="deleteSU.php?sUser_id=<?php echo $res['sUser_id'];?>">Delete</a></button></td>
 				</tr>
 
 				<!-- MODAL FOR UPDATE DATA-->

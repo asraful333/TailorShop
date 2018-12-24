@@ -31,10 +31,12 @@
 			while ($res= mysqli_fetch_array($query)) {
 				$pass= $res["password"];
 				$uid= $res["admin_id"];
+				$uname= $res["admin_name"];
 			}
 			if (trim($pass) == trim($password)) {
 				$_SESSION["ADMIN"]="IS_ACTIVE";
 				$_SESSION["userid"]=$uid;
+				$_SESSION["username"]=$uname;
 				echo '<script type="text/javascript">location.href="admin.php";</script>';				
 			}else{
 				$msg= '<div class="alert alert-warning alert-dismissible" role="alert" style="margin-top: 10px; margin-bottom: 0px;"><i class="fa fa-warning"></i> Password is Incorrect.</div>';
@@ -56,10 +58,12 @@
 			while ($res= mysqli_fetch_array($query)) {
 				$pass= $res["password"];
 				$uid= $res["sUser_id"];
+				$uname= $res["sUser_name"];
 			}
 			if (trim($pass) == trim($pwd)) {
 				$_SESSION["SYSTEMUSER"]="IS_ACTIVE";
 				$_SESSION["userid"]=$uid;
+				$_SESSION["username"]=$uname;
 				echo '<script type="text/javascript">location.href="systemUser.php";</script>';				
 			}else{
 				$msg= '<div class="alert alert-warning alert-dismissible" role="alert" style="margin-top: 10px; margin-bottom: 0px;"><i class="fa fa-warning"></i> Password is Incorrect.</div>';
@@ -81,10 +85,12 @@
 			while ($res= mysqli_fetch_array($query)) {
 				$pass= $res["password"];
 				$uid= $res["master_id"];
+				$uname= $res["master_name"];
 			}
 			if (trim($pass) == trim($pwd)) {
 				$_SESSION["MASTER"]="IS_ACTIVE";
 				$_SESSION["userid"]=$uid;
+				$_SESSION["username"]=$uname;
 				echo '<script type="text/javascript">location.href="systemUser.php";</script>';				
 			}else{
 				$msg= '<div class="alert alert-warning alert-dismissible" role="alert" style="margin-top: 10px; margin-bottom: 0px;"><i class="fa fa-warning"></i> Password is Incorrect.</div>';
@@ -106,10 +112,12 @@
 			while ($res= mysqli_fetch_array($query)) {
 				$pass= $res["password"];
 				$uid= $res["customer_id"];
+				$uname= $res["customer_name"];
 			}
 			if (trim($pass) == trim($pwd)) {
 				$_SESSION["CUSTOMER"]="IS_ACTIVE";
 				$_SESSION["userid"]=$uid;
+				$_SESSION["username"]=$uname;
 				echo '<script type="text/javascript">location.href="systemUser.php";</script>';				
 			}else{
 				$msg= '<div class="alert alert-warning alert-dismissible" role="alert" style="margin-top: 10px; margin-bottom: 0px;"><i class="fa fa-warning"></i> Password is Incorrect.</div>';

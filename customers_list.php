@@ -1,6 +1,5 @@
 <!--FOR STAFF UPDATE-->
 <?php
-
 	include 'inc/connect.php';
 	if (isset($_POST['submit'])) {
 		$customer_id 	= mysqli_real_escape_string($conn,$_POST['customer_id']);
@@ -15,7 +14,7 @@
 		$res_c = mysqli_query($conn,$check) or die(mysqli_error($conn));
 
 		if (mysqli_num_rows($res_c)>0) {
-			header('Location: user.php?page=customers_list');
+			header('Location: systemUser.php?page=customers_list');
 			$msg= '<div class="alert alert-warning alert-dismissible" role="alert" style="margin-top: 10px; margin-bottom: 0px;"><i class="fa fa-warning"></i> Phone number is already exists</div>';
 			
 		}
@@ -24,7 +23,12 @@
 
 			$qry= mysqli_query($conn,$sql);
 			
-			header('Location: systemUser.php?page=customers_list');
+			if (isset($_SESSION["ADMIN"])) {
+				header('Location: admin.php?page=customers_list');
+			}elseif (isset($_SESSION["SYSTEMUSER"])) {
+				header('Location: systemUser.php?page=customers_list');
+			}
+			
 		}
 		
 	}
@@ -39,7 +43,11 @@
 
 	$qry = "INSERT INTO `customer_tb`(`customer_name`, `customer_age`, `customer_phone`,`customer_address`,`customer_gender`,`password`) VALUES ('$customer_name','$customer_age','$customer_phone','$customer_address','$customer_gender','$password')";
 	$rslt = mysqli_query($conn,$qry);
-	header('Location: systemUser.php?page=customers_list');
+	if (isset($_SESSION["ADMIN"])) {
+				header('Location: admin.php?page=customers_list');
+			}elseif (isset($_SESSION["SYSTEMUSER"])) {
+				header('Location: systemUser.php?page=customers_list');
+			}
 	}
 
 ?>
@@ -87,7 +95,14 @@
 					<td><?php echo $res['customer_address']; ?></td>
 					<td><?php echo $res['customer_gender']; ?></td>
 					<td><?php echo $res['datetime']; ?></td>
-					<td><button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#<?php echo $res['customer_id']; ?>">Edit</button></td>
+					<td>
+						<?php if (isset($_SESSION["ADMIN"])): ?>
+						<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#<?php echo $res['customer_id']; ?>">Edit</button>|<button type="button" class="btn btn-danger btn-lg"><a style="color: white;" href="deleteC.php?customer_id=<?php echo $res['customer_id'];?>">Delete</a></button>
+						<?php endif ?>
+						<?php if (isset($_SESSION["SYSTEMUSER"])): ?>
+						<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#<?php echo $res['customer_id']; ?>">Edit</button>
+						<?php endif ?>
+					</td>
 				</tr>
 
 				<!-- MODAL FOR UPDATE customer DATA-->

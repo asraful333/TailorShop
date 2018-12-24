@@ -27,4 +27,6 @@ if (isset($_SESSION["order"]) && isset($_SESSION["serial"]) && isset($_SESSION["
 	$qut = mysqli_query($conn,$qt);
 	
 	header('location:inc/finishOrder.php');
+
+
  ?>

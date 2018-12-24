@@ -42,7 +42,9 @@ if (isset($_POST['sOrders'])) {
 
 	}
 	if (isset($_POST["saveor"])) {
-		$update = "UPDATE order_tb SET deliveryDate = '".$_SESSION["deliveryDate"]."' WHERE order_id = '$oid'";
+		$del = $_SESSION["deliveryDate"];
+		$cid = $_SESSION["userid"];
+		$update = "UPDATE order_tb SET deliveryDate = '$del', sUser_id = '$cid' WHERE order_id = '$oid'";
 		$resU = mysqli_query($conn,$update);
 
 		$sql = "INSERT INTO `transaction_tb`(`order_id`, `sub_total`, `discount`, `total`, `advance`, `payable`) VALUES ('$oid', '".$_SESSION["subtotal"]."', '".$_SESSION["discount"]."', '".$_SESSION["total"]."', '".$_SESSION["advance"]."', '".$_SESSION["payable"]."')";
@@ -173,14 +175,20 @@ include 'inc/headerplugin.php';
 	<p style="text-align: center;">It's computer generated</p>
 	<div class="row">
 		<div class="col-md-6">
-			<p>Print by: </p>
+			<p>Print by: <?php echo $_SESSION["username"]; ?></p>
 		</div>
 		<div class="col-md-6"><p class="pull-right">Print Date: <?php date_default_timezone_set('Asia/Dhaka'); echo date('Y-m-d') ?></p></div>
 	</div>
 
 	<div style="text-align: center;">
 		<a class="btn btn-success hidden-print" onclick="window.print()" href="">Print</a>
-		<a class="btn btn-success hidden-print" href="systemUser.php?page=suborder">Cancel</a>
+		<?php 
+			if (isset($_SESSION["ADMIN"]) && $_SESSION["ADMIN"]=="IS_ACTIVE") {
+				echo '<a class="btn btn-success hidden-print" href="admin.php?page=suborder">Cancel</a>';
+			}
+			else
+				echo '<a class="btn btn-success hidden-print" href="systemUser.php?page=suborder">Cancel</a>';
+		 ?>
 	</div>
 	<form method="POST">
 		<button type="Submit" class="btn btn-success pull-right hidden-print" name="saveor"> Submit </button><br><br>

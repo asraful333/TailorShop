@@ -1,8 +1,13 @@
 <?php 
 	include 'inc/connect.php';
 if (isset($_SESSION["order"]) && isset($_SESSION["serial"]) && isset($_SESSION["customerid"]) && $_SESSION["order"]=='yes') {
-	header('location:systemUser.php?page=suborder');
-}
+
+			if (isset($_SESSION["ADMIN"]) && $_SESSION["ADMIN"]=="IS_ACTIVE") {
+				header('location:admin.php?page=suborder');
+			}
+			else
+				header('location:systemUser.php?page=suborder');
+		}
 	if (isset($_POST['submitOdr']) && isset($_POST['customer_id'])) {
 
 		$customer_id = mysqli_real_escape_string($conn,$_POST['customer_id']);
@@ -26,7 +31,12 @@ if (isset($_SESSION["order"]) && isset($_SESSION["serial"]) && isset($_SESSION["
 					$_SESSION["order"]='yes';
 					$_SESSION["serial"]=$serial;
 					$_SESSION["customerid"]=$_POST['customer_id'];
-					header('Location:systemUser.php?page=suborder');
+
+					if (isset($_SESSION["ADMIN"]) && $_SESSION["ADMIN"]=="IS_ACTIVE") {
+							header('location:admin.php?page=suborder');
+						}
+					else
+						header('location:systemUser.php?page=suborder');
 				}else{
 					echo "Insert Failed!..";
 				}

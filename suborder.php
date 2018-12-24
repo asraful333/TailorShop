@@ -33,7 +33,12 @@ if (isset($_POST['shirtS'])) {
 
 		$sql = "INSERT INTO shirt_tb (order_id, quantity, amount, master_id, body, shoulder, neck, forearm, belly, body_length, armhole, cuff, hip, sleeves_length, arm, description) VALUES ('$oid', '$quantity', '$amount', '$master', '$body', '$shoulder', '$neck', '$forearm', '$belly', '$body_length', '$armhole', '$cuff', '$hip', '$sleeves_length', '$arm', '$description')";
 		$qry = mysqli_query($conn,$sql);
-		header('Location:systemUser.php?page=suborder');
+		if (isset($_SESSION["ADMIN"]) && $_SESSION["ADMIN"]=="IS_ACTIVE") {
+				header('location:admin.php?page=suborder');
+			}
+			else
+				header('location:systemUser.php?page=suborder');
+		
 		}else{
 			$mg = "Select Master";
 
@@ -60,7 +65,13 @@ if (isset($_POST['pantS'])) {
 
 		$sql = "INSERT INTO pant_tb (order_id, quantity, amount, master_id, length, thigh, fly, waist, high, bottom, hip, zipper, description) VALUES ('$oid', '$quantity', '$amount', '$master', '$length', '$thigh', '$fly', '$waist', '$high', '$bottom', '$hip', '$zipper', '$description')";
 		$qry = mysqli_query($conn,$sql);
-		header('Location:systemUser.php?page=suborder');
+		
+			if (isset($_SESSION["ADMIN"]) && $_SESSION["ADMIN"]=="IS_ACTIVE") {
+				header('location:admin.php?page=suborder');
+			}
+			else
+				header('location:systemUser.php?page=suborder');
+
 		}else{
 			$mg = "Select Master";
 

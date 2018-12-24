@@ -72,7 +72,7 @@
 					<td><?php echo $res['master_address']; ?></td>
 					<td><?php echo $res['master_gender']; ?></td>
 					<td><?php echo $res['master_type']; ?></td>
-					<td><button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#<?php echo $res['master_id']; ?>">Edit</button></td>
+					<td><button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#<?php echo $res['master_id']; ?>">Edit</button>|<button type="button" class="btn btn-danger btn-lg"><a style="color: white;" href="deleteM.php?master_id=<?php echo $res['master_id'];?>">Delete</a></button></td>
 				</tr>
 
 				<!-- MODAL FOR UPDATE DATA-->
