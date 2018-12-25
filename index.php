@@ -86,11 +86,13 @@
 				$pass= $res["password"];
 				$uid= $res["master_id"];
 				$uname= $res["master_name"];
+				$type= $res["master_type"];
 			}
 			if (trim($pass) == trim($pwd)) {
 				$_SESSION["MASTER"]="IS_ACTIVE";
 				$_SESSION["userid"]=$uid;
 				$_SESSION["username"]=$uname;
+				$_SESSION["usertype"]=$type;
 				echo '<script type="text/javascript">location.href="systemUser.php";</script>';				
 			}else{
 				$msg= '<div class="alert alert-warning alert-dismissible" role="alert" style="margin-top: 10px; margin-bottom: 0px;"><i class="fa fa-warning"></i> Password is Incorrect.</div>';

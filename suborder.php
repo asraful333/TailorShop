@@ -405,24 +405,28 @@ if (isset($_POST['pantS'])) {
 					        <table class="table table-striped table-bordered">
 					            	<h3>Sub-Orders:</h3>
 					            	<tr>
+					            		<th>#</th>
 						            	<th>Service</th>
 						            	<th>Quantity</th>
 						            	<th>Master</th>
+						            	<th>Amount</th>
 						            	<th>Action</th>
 					            	</tr>
 					            	<?php $q = "SELECT * FROM shirt_tb s INNER JOIN master_tb m ON s.master_id = m.master_id WHERE order_id = '$oid'";
 					            		$query = mysqli_query($conn,$q);
-					            		//$i = 1;
+					            		$i = 1;
 										while ($res= mysqli_fetch_array($query)) {
 											
 
 					            	 ?>
 					            	<tr>
+					            		<td><?php echo $i++; ?></td>
 					            		<td><?php if ($res['master_type'] == 'Shirt') {
 					            			echo "Shirt";
 					            		}?></td>
 					            		<td><?php echo $res['quantity']; ?></td>
 					            		<td><?php echo $res['master_name']; ?></td>
+					            		<td><?php echo $res['amount']; ?></td>
 					            		<td><a href="deleteS.php?shirt_id=<?php echo $res['shirt_id'] ?> " class="btn btn-info">
           									<span class="glyphicon glyphicon-remove"></span>
         								</a></td>
@@ -435,11 +439,13 @@ if (isset($_POST['pantS'])) {
 										while ($res= mysqli_fetch_array($query)) {
 					            	 ?>
 					            	<tr>
+					            		<td><?php echo $i++; ?></td>
 					            		<td><?php if ($res['master_type'] == 'Pant') {
 					            			echo "Pant";
 					            		}?></td>
 					            		<td><?php echo $res['quantity']; ?></td>
 					            		<td><?php echo $res['master_name']; ?></td>
+					            		<td><?php echo $res['amount']; ?></td>					            		
 					            		<td><a href="deleteP.php?pant_id=<?php echo $res['pant_id'] ?> " class="btn btn-info">
           									<span class="glyphicon glyphicon-remove"></span>
         								</a></td>

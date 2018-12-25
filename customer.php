@@ -31,7 +31,7 @@ include 'inc/headerplugin.php';
 				<div class="sidebar-scroll">
 					<nav>
 						<ul class="nav">
-							<li><a href="" style="font-size: 25px;"> <span>Master</span></a></li>
+							<li><a href="" style="font-size: 25px;"> <span>Customer <br>(<?php echo $_SESSION["username"]; ?>)</span></a></li>
 
 							<li><a href="master.php?page=dashboardC" class="active"><i class="lnr lnr-home"></i><span>Dashboard</span></a></li>
 
@@ -47,11 +47,11 @@ include 'inc/headerplugin.php';
 							</li> -->
 
 							<li>
-								<a href="#suba" data-toggle="collapse" class="collapsed"><i class="lnr lnr-file-add"></i> <span>Assign Work</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
+								<a href="#suba" data-toggle="collapse" class="collapsed"><i class="lnr lnr-file-add"></i> <span>Order Details</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
 								<div id="suba" class="collapse ">
 									<ul class="nav">
 
-										<li><a href="master.php?page=orderassign_list" class="">Order Assign List</a></li>
+										<li><a href="customer.php?page=orderlist_C" class="">Order List</a></li>
 
 									</ul>
 								</div>

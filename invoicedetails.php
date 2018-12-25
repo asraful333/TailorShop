@@ -1,63 +1,19 @@
 <?php 
 session_start();
+
 include 'inc/connect.php';
-if (isset($_SESSION["order"]) && isset($_SESSION["serial"]) && isset($_SESSION["customerid"]) && $_SESSION["order"]=='yes') {
-	$open = $_SESSION["order"];
-	$serial =  $_SESSION["serial"];
-	$customerid = $_SESSION["customerid"];
-	$userid = $_SESSION["userid"];
-	$q = "SELECT * FROM order_tb WHERE serial='$serial'";
-			$query = mysqli_query($conn,$q);
-			while ($res= mysqli_fetch_array($query)) {
-				$oid= $res['order_id'];
-			}
-}
-else
-	header('location:index.php');
+	$order_id = $_GET['order_id'];
 
-
-
-// Insert transaction and update order
-if (isset($_POST['sOrders'])) {
-		$sub_total 		= mysqli_real_escape_string($conn,$_POST['total_amount']);
-		$discount 		= mysqli_real_escape_string($conn,$_POST['discount']);
-		$total 			= mysqli_real_escape_string($conn,$_POST['total']);
-		$advance 		= mysqli_real_escape_string($conn,$_POST['advance']);
-		$payable 		= mysqli_real_escape_string($conn,$_POST['payable']);
-		$deliveryDate 	= mysqli_real_escape_string($conn,$_POST['deliveryDate']);
-
-		$_SESSION["subtotal"]=$sub_total;
-		$_SESSION["discount"]=$discount;
-		$_SESSION["total"]=$total;
-		$_SESSION["advance"]=$advance;
-		$_SESSION["payable"]=$payable;
-		$_SESSION["deliveryDate"]=$deliveryDate;
-
-		$sub = $_SESSION["subtotal"];
-		$dis = $_SESSION["discount"];
-		$tot = $_SESSION["total"];
-		$adv = $_SESSION["advance"];
-		$paya =$_SESSION["payable"];
-		$del = $_SESSION["deliveryDate"];
-
+	$sql = "SELECT * FROM order_tb WHERE order_id='$order_id'";
+	$qry = mysqli_query($conn,$sql);
+	while ($res=mysqli_fetch_array($qry)) {
+		$customer_id=$res['customer_id'];
+		$serial=$res['serial'];
+		$receiveDate=$res["receiveDate"];
+		$deliveryDate=$res["deliveryDate"];
 	}
-	if (isset($_POST["saveor"])) {
-		$del = $_SESSION["deliveryDate"];
-		$cid = $_SESSION["userid"];
-		$update = "UPDATE order_tb SET deliveryDate = '$del', sUser_id = '$cid' WHERE order_id = '$oid'";
-		$resU = mysqli_query($conn,$update);
 
-		$sql = "INSERT INTO `transaction_tb`(`order_id`, `sub_total`, `discount`, `total`, `advance`, `payable`) VALUES ('$oid', '".$_SESSION["subtotal"]."', '".$_SESSION["discount"]."', '".$_SESSION["total"]."', '".$_SESSION["advance"]."', '".$_SESSION["payable"]."')";
-		$qry = mysqli_query($conn,$sql);
-		if ($qry) {
-			header('Location:inc/finishOrder.php');
-		}else{
-			echo "failed insert";
-		}
-}
-
-include 'inc/headerplugin.php'; 
-
+include 'inc/headerplugin.php';
 ?>
 <body>
 	<!-- NAVBAR -->
@@ -86,7 +42,7 @@ include 'inc/headerplugin.php';
 
 	<div class="row">
 		<?php 
-			$sql = "SELECT * FROM customer_tb WHERE customer_id='$customerid'";
+			$sql = "SELECT * FROM customer_tb WHERE customer_id='$customer_id'";
 			$qry = mysqli_query($conn,$sql);
 				while ($res= mysqli_fetch_array($qry)) {
 						$name= $res['customer_name'];
@@ -104,11 +60,8 @@ include 'inc/headerplugin.php';
 
 		<div>
 			<h3><strong>Serial <?php echo $serial; ?></strong></h3>
-			<h4><strong>Received Date: </strong><?php
-			date_default_timezone_set('Asia/Dhaka');
-			echo date('Y-M-d');
-			  ?></h4>
-			<h4><strong>Delivery Date: </strong><?php echo $_SESSION["deliveryDate"]; ?></h4>
+			<h4><strong>Received Date: </strong><?php echo $receiveDate; ?></h4>
+			<h4><strong>Delivery Date: </strong><?php echo $deliveryDate; ?></h4>
 		</div>
 		
 
@@ -126,9 +79,9 @@ include 'inc/headerplugin.php';
 					<th>Master</th>
 					<th>Amount</th>
 				</tr>
-				<?php $q = "SELECT * FROM shirt_tb s INNER JOIN master_tb m ON s.master_id = m.master_id WHERE order_id = '$oid'";
-					$i=1;
+				<?php $q = "SELECT * FROM shirt_tb s INNER JOIN master_tb m ON s.master_id = m.master_id WHERE order_id = '$order_id'";
 					$query = mysqli_query($conn,$q);
+					$i=1;
 					while ($res= mysqli_fetch_array($query)) {
 				?>
 				<tr>
@@ -142,7 +95,7 @@ include 'inc/headerplugin.php';
 				</tr>
 				<?php } ?>
 
-				<?php $q = "SELECT * FROM pant_tb s INNER JOIN master_tb m ON s.master_id = m.master_id WHERE order_id = '$oid'";
+				<?php $q = "SELECT * FROM pant_tb s INNER JOIN master_tb m ON s.master_id = m.master_id WHERE order_id = '$order_id'";
 					$query = mysqli_query($conn,$q);
 					while ($res= mysqli_fetch_array($query)) {
 				?>
@@ -163,13 +116,19 @@ include 'inc/headerplugin.php';
 	<div class="row">
 		<div class="col-md-6"></div>
 		<div class="col-md-6">
+			<?php 
+				$sql = "SELECT * FROM transaction_tb WHERE order_id='$order_id'";
+				$qry = mysqli_query($conn,$sql);
+				while ($res=mysqli_fetch_array($qry)) {
+
+			 ?>
 			<div class="pull-right">
-			<h4><b>Sub Total: </b>	<?php echo $_SESSION["subtotal"]; ?></h4>
-			<h4><b>Discount: </b>	<?php echo $_SESSION["discount"]; ?></h4>
-			<h4><b>Total Bill: </b>	<?php echo $_SESSION["total"]; ?></h4>
-			<h4><b>Advance: </b>	<?php echo $_SESSION["advance"]; ?></h4>
-			<h4><b>Payable: </b>	<?php echo $_SESSION["payable"]; ?></h4>
-		
+			<h4><b>Sub Total: </b>	<?php echo $res["sub_total"]; ?></h4>
+			<h4><b>Discount: </b>	<?php echo $res["discount"]; ?></h4>
+			<h4><b>Total Bill: </b>	<?php echo $res["total"]; ?></h4>
+			<h4><b>Advance: </b>	<?php echo $res["advance"]; ?></h4>
+			<h4><b>Payable: </b>	<?php echo $res["payable"]; ?></h4>
+		<?php } ?>
 			</div>
 		</div>
 	</div>
@@ -188,14 +147,12 @@ include 'inc/headerplugin.php';
 		<a class="btn btn-success hidden-print" onclick="window.print()" href="">Print</a>
 		<?php 
 			if (isset($_SESSION["ADMIN"]) && $_SESSION["ADMIN"]=="IS_ACTIVE") {
-				echo '<a class="btn btn-success hidden-print" href="admin.php?page=suborder">Cancel</a>';
+				echo '<a class="btn btn-success hidden-print" href="admin.php?page=orders_list">Cancel</a>';
 			}
 			else
-				echo '<a class="btn btn-success hidden-print" href="systemUser.php?page=suborder">Cancel</a>';
+				echo '<a class="btn btn-success hidden-print" href="systemUser.php?page=orders_list">Cancel</a>';
 		 ?>
-	</div>
-	<form method="POST">
-		<button type="Submit" class="btn btn-success pull-right hidden-print" name="saveor"> Submit </button><br><br>
-	</form><br>
+	</div><br><br>
+	
 </div>
 <?php include 'inc/footerplugin.php'; ?>

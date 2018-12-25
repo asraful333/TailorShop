@@ -31,7 +31,7 @@ include 'inc/headerplugin.php';
 				<div class="sidebar-scroll">
 					<nav>
 						<ul class="nav">
-							<li><a href="systemUser.php" style="font-size: 25px;"> <span>System User</span></a></li>
+							<li><a href="systemUser.php" style="font-size: 25px;"> <span>System User <br>(<?php echo $_SESSION["username"]; ?>)</span></a></li>
 							<li><a href="systemUser.php?page=dashboard" class="active"><i class="lnr lnr-home"></i> <span>Dashboard</span></a></li>
 							<li>
 								<a href="#subPages" data-toggle="collapse" class="collapsed"><i class="lnr lnr-users"></i> <span>Customer</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>

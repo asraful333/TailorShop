@@ -12,7 +12,6 @@ if (isset($_SESSION["order"]) && isset($_SESSION["serial"]) && isset($_SESSION["
 
 		$customer_id = mysqli_real_escape_string($conn,$_POST['customer_id']);
 		if ($customer_id!=null) {
-			$status		 = mysqli_real_escape_string($conn,$_POST['status']);
 			$q = "SELECT * FROM order_tb order by order_id desc limit 1";
 				$query = mysqli_query($conn,$q);
 				while ($res= mysqli_fetch_array($query)) {
@@ -25,7 +24,7 @@ if (isset($_SESSION["order"]) && isset($_SESSION["serial"]) && isset($_SESSION["
 					$serial += 1;
 				}
 
-			$qr = "INSERT INTO order_tb (serial,customer_id,status) VALUES ('$serial','$customer_id','$status')";
+			$qr = "INSERT INTO order_tb (serial,customer_id) VALUES ('$serial','$customer_id')";
 				$qry = mysqli_query($conn,$qr);
 				if ($qry) {
 					$_SESSION["order"]='yes';

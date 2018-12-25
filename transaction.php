@@ -1,3 +1,15 @@
+<?php 
+	include 'inc/connect.php';
+	if (isset($_POST['ok'])) {
+		$set = $_POST['pay'];
+
+		$sid = $_POST['sid'];
+		$result = $set-$sid;
+		$oid = $_POST['oid'];
+		$update = "UPDATE transaction_tb SET payable='$result' WHERE order_id='$oid' ";
+		$qry = mysqli_query($conn,$update);
+	}
+ ?>
 <!-- TABLE STRIPED -->
 <div class="panel panel-default">
 	<div class="panel-heading">
@@ -18,8 +30,6 @@
 			<tbody id="myTable">
 			
 				<?php
-
-					include 'inc/connect.php';
 					$i=1;
 
 					$search = "SELECT * FROM transaction_tb";
@@ -35,6 +45,7 @@
 						$qu = mysqli_query($conn,$sql);
 						while ($re= mysqli_fetch_array($qu)) {
 							$customer_id = $re['customer_id'];
+							$order_id = $re['order_id'];
 						 ?>
 					<td><?php echo $re['serial']; ?></td>
 					<?php } ?>
@@ -47,12 +58,22 @@
 					<td><?php echo $r['customer_name']; ?></td>
 					<?php } ?>
 
-					<td><?php echo $res['payable']; ?></td>
-					<td><?php if ($res['payable'] == '0') {
-						echo '<span class="label label-success">','Paid','</span>';
-					}else{
-						echo '<span class="label label-danger">','Non Paid','</span>';
-					} ?></td>
+					<td>
+						<form method="POST">
+							<div class="form-group">
+							<input type="hidden" name="oid" value="<?php echo $order_id;?>">
+							<input type="hidden" name="pay" value="<?php echo $res['payable'];?>">
+							<input class="form-control" type="number" name="sid" value="<?php echo $res['payable'];?>">
+							</div>
+							<button type="submit" class="btn btn-primary" name="ok" id="ok">ok</button>
+
+						</form>
+					</td>
+					<td>
+						<?php if ($res['payable'] == '0') {
+						echo '<span class="label label-success">Paid</span>';
+						}else{ echo '<span class="label label-danger">Non Paid</span>'; } ?>
+					</td>
 					<td>
 						<div class="dropdown">
 						    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Action

@@ -30,7 +30,7 @@ include 'inc/headerplugin.php';
 				<div class="sidebar-scroll">
 					<nav>
 						<ul class="nav">
-							<li><a href="" style="font-size: 25px;"> <span>Admin</span></a></li>
+							<li><a href="" style="font-size: 25px;"> <span>Admin <br>(<?php echo $_SESSION["username"]; ?>)</span></a></li>
 
 							<li><a href="admin.php?page=dashboard" class="active"><i class="lnr lnr-home"></i> <span>Dashboard</span></a></li>
 

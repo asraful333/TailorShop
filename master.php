@@ -31,7 +31,7 @@ include 'inc/headerplugin.php';
 				<div class="sidebar-scroll">
 					<nav>
 						<ul class="nav">
-							<li><a href="" style="font-size: 25px;"> <span>Master</span></a></li>
+							<li><a href="" style="font-size: 25px;"> <span>Master <br>(<?php echo $_SESSION["username"]; ?>)</span></a></li>
 
 							<li><a href="master.php?page=dashboardM" class="active"><i class="lnr lnr-home"></i><span>Dashboard</span></a></li>
 
